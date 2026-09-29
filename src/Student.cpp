@@ -1,4 +1,4 @@
-#include "Student.h"
+#include "../include/Student.h"
 
 Student::Student() {
     id = 0;

@@ -4,8 +4,7 @@
 
 using namespace std;
 
-class Student
-{
+class Student {
 private:
     int id;
     string name;
