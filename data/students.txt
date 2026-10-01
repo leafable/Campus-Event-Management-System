@@ -1,10 +1,10 @@
-1001, Alex Baker, alexbaker@gmail.com, Computer Science
-1002, Reese Collins, reesecollins@outlook.com, Agriculture
-1003, Jordan Lee, jordanlee@gmail.com, Biology
-1004, Taylor Morgan, taylormorgan@outlook.com, Mathematics
-1005, Casey Patel, caseypatel@gmail.com, Engineering
-1006, Riley Chen, rileychen@outlook.com, Psychology
-1007, Morgan Davis, morgandavis@gmail.com, History
-1008, Jamie Rivera, jamierivera@outlook.com, Chemistry
-1009, Avery Thompson, averythompson@gmail.com, Business
-1010, Quinn Brooks, quinnbrooks@outlook.com, Environmental Science
+1001,Alex Baker,alexbaker@gmail.com,Computer Science
+1002,Reese Collins,reesecollins@outlook.com,Agriculture
+1003,Jordan Lee,jordanlee@gmail.com,Biology
+1004,Taylor Morgan,taylormorgan@outlook.com,Mathematics
+1005,Casey Patel,caseypatel@gmail.com,Engineering
+1006,Riley Chen,rileychen@outlook.com,Psychology
+1007,Morgan Davis,morgandavis@gmail.com,History
+1008,Jamie Rivera,jamierivera@outlook.com,Chemistry
+1009,Avery Thompson,averythompson@gmail.com,Business
+1010,Quinn Brooks,quinnbrooks@outlook.com,Environmental Science
