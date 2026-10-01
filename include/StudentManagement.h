@@ -16,4 +16,5 @@ public:
     bool isDuplicateId(int id) const;
     bool studentExists(int id) const;
     int getNumStudents() const;
+    vector<Student> getStudents() const;
 };

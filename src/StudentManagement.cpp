@@ -58,3 +58,7 @@ bool StudentManagement::isDuplicateId(int id) const {
 int StudentManagement::getNumStudents() const {
     return numStudents;
 }
+
+vector<Student> StudentManagement::getStudents() const {
+    return students;
+}
