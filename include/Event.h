@@ -7,21 +7,17 @@ class Event(){
     static int numEvents = 0;
     string eventName;
     string eventDescription;
-    int eventYear;
-    int eventMonth;
-    int eventDay;
+    string eventDate;
     int eventTime;  //the time will just be the hour the event starts
     string eventLocation;
     int eventMaxCapacity;
     string organizer;
     public:
-    Event(string name, string description, int year, int month, int day, int time,  string location, int maxCap, string organizer);
+    Event(string name, string description, string date, int time,  string location, int maxCap, string organizer);
     int getEventId();
     string getEventName();
     string getEventDescription();
-    int getEventYear();
-    int getEventMonth();
-    int getEventDay();
+    string getEventDate();
     int getEventTime();
     string getEventLocation();
     int getEventMaxCapacity();
