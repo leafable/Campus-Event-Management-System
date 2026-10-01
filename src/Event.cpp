@@ -1,6 +1,6 @@
-#include <event.h>
+#include <Event.h>
 
-Event(string name, string description, int year, int month, int day, int time,  string location, int maxCap, string organizer){
+Event::Event(string name, string description, int year, int month, int day, int time,  string location, int maxCap, string organizer){
     this->eventName = name;
     this->eventDescription = description;
     this->eventYear = year;
@@ -14,42 +14,42 @@ Event(string name, string description, int year, int month, int day, int time,  
     this->eventId = numEvents;
 }
 
-int getEventId(){
+int Event::getEventId(){
     return eventId;
 }
 
-string getEventName(){
+string Event::getEventName(){
     return eventName;
 }
 
-string getEventDescription(){
+string Event::getEventDescription(){
     return eventDescription;
 }
 
-int getEventYear(){
+int Event::getEventYear(){
     return eventYear;
 }
 
-int getEventMonth(){
+int Event::getEventMonth(){
     return eventMonth;
 }
 
-int getEventDay(){
+int Event::getEventDay(){
     return eventDay;
 }
 
-int getEventTime(){
+int Event::getEventTime(){
     return eventTime;
 }
 
-string getEventLocation(){
+string Event::getEventLocation(){
     return eventLocation;
 }
 
-int getEventMaxCapacity(){
+int Event::getEventMaxCapacity(){
     return eventMaxCapacity;
 }
 
-string getOrganizer(){
+string Event::getOrganizer(){
     return organizer;
 }
