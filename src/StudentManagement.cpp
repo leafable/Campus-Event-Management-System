@@ -2,6 +2,7 @@
 
 StudentManagement::StudentManagement() {
     vector<Student> students;
+    numStudents = 0;
 }
 
 void StudentManagement::addStudent(const Student& student) {
@@ -10,6 +11,7 @@ void StudentManagement::addStudent(const Student& student) {
     }
     else {
         students.push_back(student);
+        numStudents++;
     }
 }
 
@@ -20,6 +22,7 @@ void StudentManagement::addStudent(const int id, const string& name, const strin
     else {
         Student student(id, name, email, major);
         students.push_back(student);
+        numStudents++;
     }
 }
 
@@ -50,4 +53,8 @@ void StudentManagement::displayAllStudents() const {
 
 bool StudentManagement::isDuplicateId(int id) const {
     return (findById(id) != -1);
+}
+
+int StudentManagement::getNumStudents() const {
+    return numStudents;
 }

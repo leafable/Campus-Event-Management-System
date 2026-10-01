@@ -5,6 +5,7 @@
 class StudentManagement {
 private:
     vector<Student> students;
+    static int numStudents;
 public:
     StudentManagement();
     void addStudent(const Student& student);
@@ -13,4 +14,6 @@ public:
     void displayStudent(int id) const;
     void displayAllStudents() const;
     bool isDuplicateId(int id) const;
+    bool studentExists(int id) const;
+    int getNumStudents() const;
 };
