@@ -36,7 +36,7 @@ bool RegistrationManager::checkEvent(int eventID){
 }
 
 void RegistrationManager::registerStudent(int ID, int eventID, std::string name){
-    Registration registration(ID, eventID, name, getCurrentTime(), "Registered"); //add a way to input date
+    Registration registration(ID, eventID, name, getCurrentDate(), "Registered"); //add a way to input date
     registrations.push_back(registration);
 } //Registers student to event
 
