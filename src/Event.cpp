@@ -1,6 +1,6 @@
 #include <Event.h>
 
-Event::Event(string name, string description, string date, int time,  string location, int maxCap, string organizer){
+virtual Event::Event(string name, string description, string date, int time,  string location, int maxCap, string organizer, int eventLength){
     this->eventName = name;
     this->eventDescription = description;
     this->date = date;
@@ -12,34 +12,69 @@ Event::Event(string name, string description, string date, int time,  string loc
     this->eventId = numEvents;
 }
 
-int Event::getEventId(){
+virtual int Event::getEventId() const{
     return eventId;
 }
 
-string Event::getEventName(){
+virtual string Event::getEventName() const{
     return eventName;
 }
 
-string Event::getEventDescription(){
+virtual string Event::getEventDescription() const{
     return eventDescription;
 }
 
-string Event::getEventDate(){
+virtual string Event::getEventDate() const{
     return eventDate;
 }
 
-int Event::getEventTime(){
+virtual int Event::getEventTime() const{
     return eventTime;
 }
 
-string Event::getEventLocation(){
+virtual string Event::getEventLocation() const{
     return eventLocation;
 }
 
-int Event::getEventMaxCapacity(){
+virtual int Event::getEventMaxCapacity() const{
     return eventMaxCapacity;
 }
 
-string Event::getOrganizer(){
+virtual string Event::getOrganizer() const{
     return organizer;
+}
+
+virtual int Event::getEventLength() const{
+    return eventLength();
+}
+
+virtual void Event::setEventName(string newEventName){
+    this->eventName = newEventName;
+}
+
+virtual void Event::setEventDescription(string newEventDescription){
+    this->eventDescription = newEventDescription;
+}
+
+virtual void Event::setEventDate(string newEventDate){
+    this->eventDate = newEventDate;
+}
+
+virtual void Event::setEventTime(int newEventTime){
+    this->eventTime = newEventTime;
+}
+
+virtual void Event::setEventLength(int newEventLength){
+    this->eventLength = newEventLength;
+}
+
+virtual void Event::setEventMaxCapacity(int newEventMaxCapacity){
+    this->eventMaxCapacity = newEventMaxCapacity;
+}
+
+virtual void Event::setOrganizer(string newOrganizer){
+    this->organizer = newOrganizer;
+}
+virtual void Event::setLocation(string newLocation){
+    this-location = newLocation;
 }
