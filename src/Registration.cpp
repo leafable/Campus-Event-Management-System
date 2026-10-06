@@ -1,37 +1,41 @@
 #include "Registration.h"
 
-Registration::Registration(){
-    studentID = 0;
-    eventID = 0;
-    registrationDate = "1/1/2000";
-    status = "Registered";
+using namespace std;
+
+Registration::Registration()
+    : studentID(0), eventID(0), registrationDate(""), status("Registered")
+{
 }
 
-Registration::Registration(int studentID, int eventID, string name, string regDate, string stat){
-    this->studentID = studentID;
-    this->eventID = eventID;
-    studentName = name;
-    registrationDate = regDate;
-    status = stat;
+Registration::Registration(int studentID, int eventID,
+                           const string& registrationDate,
+                           const string& status)
+    : studentID(studentID), eventID(eventID),
+      registrationDate(registrationDate), status(status)
+{
 }
 
-int Registration::getStudentID(){
+int Registration::getStudentID() const
+{
     return studentID;
-};
+}
 
-int Registration::getEventID(){
+int Registration::getEventID() const
+{
     return eventID;
-};
+}
 
-std::string Registration::getStudentName(){
-    return studentName;
-};
-
-std::string Registration::regDate(){
+const string& Registration::getRegistrationDate() const
+{
     return registrationDate;
-};
+}
 
-std::string Registration::showStatus(){
+const string& Registration::getStatus() const
+{
     return status;
-};
+}
 
+void Registration::setStatus(const string& status)
+{
+    this->status = status;
+}

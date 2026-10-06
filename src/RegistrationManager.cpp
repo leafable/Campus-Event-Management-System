@@ -1,50 +1,86 @@
 #include "RegistrationManager.h"
 
-RegistrationManager::RegistrationManager(){
+using namespace std;
 
-};
-
-RegistrationManager::RegistrationManager(vector<Student> list){
-    list = student;
-};
-
-
-std::string getCurrentDate() {
-    auto now = std::chrono::system_clock::now();
-    std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
-    std::tm localTime = *std::localtime(&currentTime);
-
-    std::ostringstream oss;
-    oss << std::put_time(&localTime, "%Y-%m-%d"); // Format: YYYY-MM-DD
-    return oss.str();
-}
-
-bool RegistrationManager::studentExist(int ID){
-    bool exist = false;
-
-    for(int i = 0; i<student.size();i++){
-        if(ID == student[i].getId()){
-            exist = true;
-            return exist;
+int RegistrationManager::findIndex(int studentID, int eventID) const
+{
+    for (size_t i = 0; i < registrations.size(); i++)
+    {
+        if (registrations[i].getStudentID() == studentID &&
+            registrations[i].getEventID() == eventID)
+        {
+            return static_cast<int>(i);
         }
     }
-    return exist;
+    return -1;
 }
 
-bool RegistrationManager::checkEvent(int eventID){
-    
-}
-
-void RegistrationManager::registerStudent(int ID, int eventID, std::string name){
-    Registration registration(ID, eventID, name, getCurrentDate(), "Registered"); //add a way to input date
+bool RegistrationManager::addRegistration(const Registration& registration)
+{
+    if (isRegistered(registration.getStudentID(), registration.getEventID()))
+    {
+        return false;
+    }
     registrations.push_back(registration);
-} //Registers student to event
+    return true;
+}
 
-void RegistrationManager::viewRegisteredStudents(int eventID){
+bool RegistrationManager::isRegistered(int studentID, int eventID) const
+{
+    return findIndex(studentID, eventID) != -1;
+}
 
-} //displays the list of students registered for that event
+bool RegistrationManager::cancelRegistration(int studentID, int eventID)
+{
+    int index = findIndex(studentID, eventID);
+    if (index == -1)
+    {
+        return false;
+    }
+    registrations.erase(registrations.begin() + index);
+    return true;
+}
 
-void RegistrationManager::viewStudentEvent(int studentID){
+int RegistrationManager::countForEvent(int eventID) const
+{
+    int count = 0;
+    for (const Registration& registration : registrations)
+    {
+        if (registration.getEventID() == eventID)
+        {
+            count++;
+        }
+    }
+    return count;
+}
 
-} //displays list of events registered by that student
+vector<int> RegistrationManager::getEventIDsForStudent(int studentID) const
+{
+    vector<int> eventIDs;
+    for (const Registration& registration : registrations)
+    {
+        if (registration.getStudentID() == studentID)
+        {
+            eventIDs.push_back(registration.getEventID());
+        }
+    }
+    return eventIDs;
+}
 
+vector<int> RegistrationManager::getStudentIDsForEvent(int eventID) const
+{
+    vector<int> studentIDs;
+    for (const Registration& registration : registrations)
+    {
+        if (registration.getEventID() == eventID)
+        {
+            studentIDs.push_back(registration.getStudentID());
+        }
+    }
+    return studentIDs;
+}
+
+const vector<Registration>& RegistrationManager::getAllRegistrations() const
+{
+    return registrations;
+}
