@@ -46,4 +46,4 @@ class Event(){
                                             //the event
     void setLocation(string newLocation);  //changes the location of the
                                            //event
-}
+};

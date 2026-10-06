@@ -11,4 +11,4 @@ class AcedemicEvent : public Event{
     string getSpeaker() const;
     void setDepartment(string newDepartment);
     void setSpeaker(string newSpeaker);
-}
+};
