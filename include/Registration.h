@@ -1,25 +1,29 @@
 #ifndef REGISTRATION_H
 #define REGISTRATION_H
-#include <iostream>
+
 #include <string>
-#include <vector>
 
-#include"Student.h"
+class Registration
+{
+private:
+    int studentID;
+    int eventID;
+    std::string registrationDate;
+    std::string status;
 
-class Registration{
-    private:
-    int studentID{};
-    int eventID{};
-    std::string registrationDate{};
-    std::string status{};
+public:
+    Registration();
 
-    public:
-    Registration(); //Default constructor
-    Registration(int ID, int eventID); //overloaded constructor
-    ~Registration();
+    Registration(int studentID, int eventID,
+                 const std::string& registrationDate,
+                 const std::string& status = "Registered");
 
-    
+    int getStudentID() const;
+    int getEventID() const;
+    const std::string& getRegistrationDate() const;
+    const std::string& getStatus() const;
 
+    void setStatus(const std::string& status);
 };
 
 #endif
