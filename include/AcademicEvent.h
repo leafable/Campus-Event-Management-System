@@ -3,8 +3,8 @@
 
 class AcedemicEvent : public Event{
     private:
-    string department;
-    string speaker;
+    string department;  //stores the department name
+    string speaker;  //stoes the speakers name
     public:
     AcedemicEvent(string name, string description, string date, int time,  string location, int maxCap, string organizer, int eventLength, string department, string speaker);
     string getDepartment() const;
