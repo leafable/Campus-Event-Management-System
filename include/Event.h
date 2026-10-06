@@ -4,7 +4,7 @@
 using namespace std;
 
 class Event(){
-    private:
+    protected:
     int eventId;  //an events unique id based on the total number of events
     static int numEvents = 0; //stores how many total events there are
     string eventName;  // string that stores the events name
@@ -46,4 +46,4 @@ class Event(){
                                             //the event
     void setLocation(string newLocation);  //changes the location of the
                                            //event
-}
+};

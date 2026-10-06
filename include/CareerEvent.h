@@ -11,4 +11,4 @@ class CareerEvent : public Event{
     string getRecruiterName() const;
     void setCompanyName(string newCompanyName);
     void setRecruiterName(string newRecruiterName);
-}
+};

@@ -8,4 +8,4 @@ class ClubEvent : public Event{
     ClubEvent(string name, string description, string date, int time,  string location, int maxCap, string organizer, int eventLength, string club);
     string getClub() const;
     void setClub(string newClub);
-}
+};
