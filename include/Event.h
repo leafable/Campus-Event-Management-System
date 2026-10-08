@@ -16,7 +16,6 @@ class Event(){
     string organizer;  //stores the name of the event organizer
     public:
     Event(string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength);
-    int getEventId() const;  //Returns the event id
     string getEventName() const;  //Returns the events name
     virtual string getEventDescription() const;  //Returns the events description
     string getEventDate() const;  //Returns the events date in the form
