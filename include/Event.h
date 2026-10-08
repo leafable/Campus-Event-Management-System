@@ -5,8 +5,6 @@ using namespace std;
 
 class Event(){
     protected:
-    int eventId;  //an events unique id based on the total number of events
-    static int numEvents = 0; //stores how many total events there are
     string eventName;  // string that stores the events name
     string eventDescription;  //string that stores what the event is about
     string eventDate;  //this is the date of the event as a string, stored as 
