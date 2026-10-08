@@ -1,11 +1,9 @@
-#include <event.h>
+#include <Event.h>
 
-Event(string name, string description, int year, int month, int day, int time,  string location, int maxCap, string organizer){
+Event::Event(string name, string description, string date, int time,  string location, int maxCap, string organizer, int eventLength){
     this->eventName = name;
     this->eventDescription = description;
-    this->eventYear = year;
-    this->eventMonth = month;
-    this->eventDay = day;
+    this->date = date;
     this->eventTime = time;
     this->eventLocation = location;
     this->eventMaxCapacity = maxCap;
@@ -14,42 +12,70 @@ Event(string name, string description, int year, int month, int day, int time,  
     this->eventId = numEvents;
 }
 
-int getEventId(){
+int Event::getEventId() const{
     return eventId;
 }
 
-string getEventName(){
+string Event::getEventName() const{
     return eventName;
 }
 
-string getEventDescription(){
+virtual string Event::getEventDescription() const{
     return eventDescription;
 }
 
-int getEventYear(){
-    return eventYear;
+string Event::getEventDate() const{
+    return eventDate;
 }
 
-int getEventMonth(){
-    return eventMonth;
-}
-
-int getEventDay(){
-    return eventDay;
-}
-
-int getEventTime(){
+int Event::getEventTime() const{
     return eventTime;
 }
 
-string getEventLocation(){
+string Event::getEventLocation() const{
     return eventLocation;
 }
 
-int getEventMaxCapacity(){
+int Event::getEventMaxCapacity() const{
     return eventMaxCapacity;
 }
 
-string getOrganizer(){
+string Event::getOrganizer() const{
     return organizer;
+}
+
+int Event::getEventLength() const{
+    return eventLength();
+}
+
+void Event::setEventName(string newEventName){
+    this->eventName = newEventName;
+}
+
+void Event::setEventDescription(string newEventDescription){
+    this->eventDescription = newEventDescription;
+}
+
+void Event::setEventDate(string newEventDate){
+    this->eventDate = newEventDate;
+}
+
+void Event::setEventTime(int newEventTime){
+    this->eventTime = newEventTime;
+}
+
+void Event::setEventLength(int newEventLength){
+    this->eventLength = newEventLength;
+}
+
+void Event::setEventMaxCapacity(int newEventMaxCapacity){
+    this->eventMaxCapacity = newEventMaxCapacity;
+}
+
+void Event::setOrganizer(string newOrganizer){
+    this->organizer = newOrganizer;
+}
+
+void Event::setLocation(string newLocation){
+    this-location = newLocation;
 }

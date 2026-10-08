@@ -1,27 +1,33 @@
 #ifndef REGISTRATIONMANAGER_H
 #define REGISTRATIONMANAGER_H
-#include <iostream>
-#include <string>
-#include <vector>
 
-#include "Student.h"
+#include <vector>
 #include "Registration.h"
 
-class RegistrationManager{
-    private:
-    vector<Student> student;
-    vector<Registration> registrations;
+class RegistrationManager
+{
+private:
+    std::vector<Registration> registrations;
 
-    public:
-    RegistrationManager();
-    RegistrationManager(vector<Student> list);
+    // Returns the position of a registration in the vector, or -1 if not found
+    int findIndex(int studentID, int eventID) const;
 
-    bool studentExist(int ID);
-    bool checkEvent(int eventID);
+public:
+    // Returns false if this student is already registered for this event
+    bool addRegistration(const Registration& registration);
 
-    void registerStudent(int ID, int eventID); //Registers student to event
-    void viewRegisteredStudents(int eventID); //displays the list of students registered for that event
-    void viewStudentEvent(int studentID); //displays list of events registered by that student
+    bool isRegistered(int studentID, int eventID) const;
+
+    // Returns false if the registration does not exist
+    bool cancelRegistration(int studentID, int eventID);
+
+    int countForEvent(int eventID) const;
+
+    std::vector<int> getEventIDsForStudent(int studentID) const;
+    std::vector<int> getStudentIDsForEvent(int eventID) const;
+
+    // Used by FileManager when saving
+    const std::vector<Registration>& getAllRegistrations() const;
 };
 
-#endif 
+#endif
