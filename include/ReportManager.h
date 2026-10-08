@@ -10,18 +10,18 @@ class ReportManager
 {
 public:
     void showAvailableEvents(
-        const vector<Event>& events,
+        vector<Event>& events,
         const RegistrationManager& registrations);
 
     void showFullEvents(
-        const vector<Event>& events,
+        vector<Event>& events,
         const RegistrationManager& registrations);
 
     void showRegistrationCounts(
-        const vector<Event>& events,
+        vector<Event>& events,
         const RegistrationManager& registrations);
 
     void showMostPopularEvent(
-        const vector<Event>& events,
+       vector<Event>& events,
         const RegistrationManager& registrations);
 };
