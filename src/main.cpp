@@ -1,12 +1,19 @@
 #include <iostream>
+#include "../include/StudentManagement.h"
+#include "../include/Student.h"
 
 using namespace std;
 
 int getSelection();
+void processSelection(int selection);
 
 int main()
 {
-    getSelection();
+    StudentManagement studentManagement;
+    int selection{};
+    
+    selection = getSelection();
+    processSelection(selection);
 
     return 0;
 }
@@ -34,4 +41,34 @@ int getSelection() {
         cin >> selection;
     }
     return selection;
+}
+
+void processSelection(int selection) {
+    switch (selection) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+        case 9:
+            break;
+        case 10:
+            break;
+        case 11:
+            break;
+        case 0:
+            cout << "Exiting program." << endl;
+            exit(0);
+    }
 }
