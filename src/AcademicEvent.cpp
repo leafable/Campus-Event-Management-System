@@ -1,6 +1,6 @@
 #include "AcedemicEvent.h"
 
-AcedemicEvent(string name, string description, string date, int time,  string location, int maxCap, string organizer, int eventLength, string department, string speaker) : Event(name, description, date, time, location, maxCap, organizer, eventLength){
+AcedemicEvent(string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string department, string speaker) : Event(name, description, date, time, location, maxCap, organizer, eventLength){
     this->department = department;
     this->speaker = speaker;
 }
