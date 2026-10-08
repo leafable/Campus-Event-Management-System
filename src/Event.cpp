@@ -10,10 +10,6 @@ Event::Event(string name, string description, string date, string time,  string 
     this->organizer = organizer;
 }
 
-int Event::getEventId() const{
-    return eventId;
-}
-
 string Event::getEventName() const{
     return eventName;
 }
