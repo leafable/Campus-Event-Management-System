@@ -8,8 +8,6 @@ Event::Event(string name, string description, string date, string time,  string 
     this->eventLocation = location;
     this->eventMaxCapacity = maxCap;
     this->organizer = organizer;
-    numEvents++;
-    this->eventId = numEvents;
 }
 
 int Event::getEventId() const{
