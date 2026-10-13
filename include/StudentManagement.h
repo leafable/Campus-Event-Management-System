@@ -17,4 +17,5 @@ public:
     bool isDuplicateId(const int& id) const;
     bool studentExists(const int& id) const;
     int getNumStudents() const;
+    const vector<Student> StudentManagement::getStudentsVector();
 };

@@ -38,7 +38,10 @@ int StudentManagement::findById(const int& id) const {
 void StudentManagement::displayStudent(const int& id) const {
     int index = findById(id);
     if (index != -1) {
-        cout << "Student found: " << students[index].getName() << endl;
+        cout << "ID: " << students[index].getId() << endl;
+        cout << "Name: " << students[index].getName() << endl;
+        cout << "Email: " << students[index].getEmail() << endl;
+        cout << "Major: " << students[index].getMajor() << endl;
     }
     else {
         cout << "Student not found." << endl;

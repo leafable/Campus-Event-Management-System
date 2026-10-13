@@ -7,8 +7,8 @@ class CareerEvent : public Event{
     string recruiterName;
     public:
     CareerEvent(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string companyName, string recruiterName);
-    string getCompanyName() const;
-    string getRecruiterName() const;
+    string getCompanyName() const override;
+    string getRecruiterName() const override;
     void setCompanyName(string newCompanyName);
     void setRecruiterName(string newRecruiterName);
 };
