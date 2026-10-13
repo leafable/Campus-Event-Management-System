@@ -1,6 +1,7 @@
 #include <Event.h>
 
-Event::Event(string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength){
+Event::Event(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength){
+    this->id = id;
     this->eventName = name;
     this->eventDescription = description;
     this->date = date;

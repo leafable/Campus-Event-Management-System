@@ -1,6 +1,6 @@
 #include "SocialEvent.h"
 
-SocialEvent(string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, bool isFancy) : Event(name, description, date, time, location, maxCap, organizer, eventLength){
+SocialEvent(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, bool isFancy) : Event(id, name, description, date, time, location, maxCap, organizer, eventLength){
     this->isFancy = isFancy;
 }
 

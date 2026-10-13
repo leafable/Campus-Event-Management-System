@@ -5,7 +5,7 @@ class ClubEvent : public Event{
     private:
     string club;
     public:
-    ClubEvent(string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string club);
+    ClubEvent(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string club);
     string getClub() const;
     void setClub(string newClub);
 };
