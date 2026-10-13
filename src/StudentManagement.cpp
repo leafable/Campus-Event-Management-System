@@ -51,14 +51,17 @@ void StudentManagement::displayAllStudents() const {
     }
 }
 
+void StudentManagement::printCSV() const
+{
+    for (int i = 0; i < students.size(); i++) {
+        cout << students[i].getId() << "," << students[i].getName() << "," << students[i].getEmail() << "," << students[i].getMajor() << endl;
+    }
+}
+
 bool StudentManagement::isDuplicateId(int id) const {
     return (findById(id) != -1);
 }
 
 int StudentManagement::getNumStudents() const {
     return numStudents;
-}
-
-vector<Student> StudentManagement::getStudents() const {
-    return students;
 }

@@ -12,7 +12,7 @@ private:
     string major;
 public:
     Student();
-    Student(int id, const string& name, const string& email, const string& major);
+    Student(const int& id, const string& name, const string& email, const string& major);
     int getId() const;
     string getName() const;
     string getEmail() const;
