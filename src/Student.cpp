@@ -7,7 +7,7 @@ Student::Student() {
     major = "";
 }
 
-Student::Student(int id, const string& name, const string& email, const string& major) {
+Student::Student(const int& id, const string& name, const string& email, const string& major) {
     this->id = id;
     this->name = name;
     this->email = email;

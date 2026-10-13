@@ -1,6 +1,5 @@
 #include <iostream>
-#include "../include/StudentManagement.h"
-#include "../include/Student.h"
+#include "../include/System.h"
 
 using namespace std;
 
@@ -9,12 +8,12 @@ void processSelection(int selection);
 
 int main()
 {
-    StudentManagement studentManagement;
+    System system;
     int selection{};
     
     selection = getSelection();
     processSelection(selection);
-
+    
     return 0;
 }
 
@@ -44,6 +43,7 @@ int getSelection() {
 }
 
 void processSelection(int selection) {
+
     switch (selection) {
         case 1:
             break;
