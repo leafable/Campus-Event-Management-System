@@ -3,8 +3,9 @@
 #include <iostream>
 using namespace std;
 
-class Event(){
+class Event{
     protected:
+    int id;
     string eventName;  // string that stores the events name
     string eventDescription;  //string that stores what the event is about
     string eventDate;  //this is the date of the event as a string, stored as 
@@ -15,7 +16,7 @@ class Event(){
     int eventMaxCapacity;  //stores the max capacity of the event location
     string organizer;  //stores the name of the event organizer
     public:
-    Event(string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength);
+    Event(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength);
     string getEventName() const;  //Returns the events name
     virtual string getEventDescription() const;  //Returns the events description
     string getEventDate() const;  //Returns the events date in the form

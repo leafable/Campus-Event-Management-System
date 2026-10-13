@@ -6,7 +6,7 @@ class CareerEvent : public Event{
     string companyName;
     string recruiterName;
     public:
-    CareerEvent(string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string companyName, string recruiterName);
+    CareerEvent(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string companyName, string recruiterName);
     string getCompanyName() const;
     string getRecruiterName() const;
     void setCompanyName(string newCompanyName);

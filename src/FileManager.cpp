@@ -316,6 +316,15 @@ void writeRegistrations(RegistrationManager& rm) {
     //open txt file to save registrations
     ofstream regFile("registration.txt");
 
+    //get a pointer to the vector holding the organizers
+    // std::vector<Registration>* regPtr = rm.getOrganizerPointer();
+    //
+    // if (regPtr != nullptr) {
+    //     for (const Registration& r : *regPtr) {
+    //         regFile << r.studentID << "," << r.eventID << "," << o.email << "," << o.dept << '\n';
+    //     }
+    // }
+
     for (const Registration& r : rm.getAllRegistrations()) {
         regFile << r.studentID << "," << r.eventID << "," << r.registrationDate << "," << r.status << '\n';
     }

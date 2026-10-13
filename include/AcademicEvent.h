@@ -1,12 +1,12 @@
 #pragma once
 #include "Event.h"
 
-class AcedemicEvent : public Event{
+class AcademicEvent : public Event{ 
     private:
     string department;  //stores the department name
     string speaker;  //stoes the speakers name
     public:
-    AcedemicEvent(string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string department, string speaker);
+    AcedemicEvent(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string department, string speaker);
     string getDepartment() const;
     string getSpeaker() const;
     void setDepartment(string newDepartment);
