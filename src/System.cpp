@@ -2,6 +2,7 @@
 
 System::System()
 {
-    FileManager 
-
+    FileManager filemanager;
+    StudentManagement students;
+    OrganizerManagement organizers;
 }

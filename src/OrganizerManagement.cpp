@@ -38,14 +38,7 @@ void OrganizerManagement::displayAllOrganizers() const
         cout << "Name: " << organizer[i].getName() << ", ID: " << organizer[i].getOrganizerId() << ", Email: " << organizer[i].getEmail() << ", Department: " << organizer[i].getDepartment() << endl; 
     }
 }
-void OrganizerManagement::printCSV() const
-{
-    for (int i = 0; i < organizer.size(); i++)
-    {
-        cout << organizer[i].getName() << "," << organizer[i].getOrganizerId() << "," << organizer[i].getEmail() << "," << organizer[i].getDepartment() << endl;
-    }
-}
-int getNumOrganizers() const
+int OrganizerManagement::getNumOrganizers() const
 {
     return numOrganizers;
 }
