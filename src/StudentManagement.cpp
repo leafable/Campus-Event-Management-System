@@ -15,7 +15,7 @@ void StudentManagement::addStudent(const Student& student) {
     }
 }
 
-void StudentManagement::addStudent(const int id, const string& name, const string& email, const string& major) {
+void StudentManagement::addStudent(const int& id, const string& name, const string& email, const string& major) {
     if (isDuplicateId(id)) {
         cout << "Error: Duplicate student ID." << endl;
     }
@@ -26,7 +26,7 @@ void StudentManagement::addStudent(const int id, const string& name, const strin
     }
 }
 
-int StudentManagement::findById(int id) const {
+int StudentManagement::findById(const int& id) const {
     for (int i = 0; i < students.size(); i++) {
         if (students[i].getId() == id) {
             return i;
@@ -35,7 +35,7 @@ int StudentManagement::findById(int id) const {
     return -1;
 }
 
-void StudentManagement::displayStudent(int id) const {
+void StudentManagement::displayStudent(const int& id) const {
     int index = findById(id);
     if (index != -1) {
         cout << "Student found: " << students[index].getName() << endl;
@@ -51,10 +51,14 @@ void StudentManagement::displayAllStudents() const {
     }
 }
 
-bool StudentManagement::isDuplicateId(int id) const {
+bool StudentManagement::isDuplicateId(const int& id) const {
     return (findById(id) != -1);
 }
 
 int StudentManagement::getNumStudents() const {
     return numStudents;
+}
+
+const vector<Student> StudentManagement::getStudentsVector(){
+    return students;
 }
