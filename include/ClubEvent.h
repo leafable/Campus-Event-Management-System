@@ -6,6 +6,6 @@ class ClubEvent : public Event{
     string club;
     public:
     ClubEvent(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string club);
-    string getClub() const;
+    string getClub() const override;
     void setClub(string newClub);
 };

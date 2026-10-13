@@ -4,7 +4,7 @@ Event::Event(int id, string name, string description, string date, string time, 
     this->id = id;
     this->eventName = name;
     this->eventDescription = description;
-    this->date = date;
+    this->eventDate = date;
     this->eventTime = time;
     this->eventLocation = location;
     this->eventMaxCapacity = maxCap;
@@ -15,7 +15,7 @@ string Event::getEventName() const{
     return eventName;
 }
 
-virtual string Event::getEventDescription() const{
+string Event::getEventDescription() const{
     return eventDescription;
 }
 
@@ -40,7 +40,7 @@ string Event::getOrganizer() const{
 }
 
 string Event::getEventLength() const{
-    return eventLength();
+    return eventLength;
 }
 
 void Event::setEventName(string newEventName){
@@ -72,5 +72,9 @@ void Event::setOrganizer(string newOrganizer){
 }
 
 void Event::setLocation(string newLocation){
-    this-location = newLocation;
+    this->eventLocation = newLocation;
+}
+
+int Event::getEventId() const{
+    return id;
 }

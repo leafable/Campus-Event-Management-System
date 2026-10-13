@@ -15,6 +15,5 @@ public:
     int findByName(const string& name) const;
     void displayOrganizer(const string& name) const;
     void displayAllOrganizers() const;
-    void printCSV() const;
     int getNumOrganizers() const;
 };

@@ -44,4 +44,11 @@ class Event{
                                             //the event
     void setLocation(string newLocation);  //changes the location of the
                                            //event
+    int getEventId() const;
+    virtual string getDepartment() const;
+    virtual string getSpeaker() const;
+    virtual string getCompanyName() const;
+    virtual string getRecruiterName() const;
+    virtual string getClub() const;
+    virtual bool getIfFancy() const;
 };

@@ -1,22 +1,22 @@
 #include "CareerEvent.h"
 
-CareerEvent(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string companyName, string recruiterName) : Event(id, name, description, date, time, location, maxCap, organizer, eventLength){
+CareerEvent::CareerEvent(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string companyName, string recruiterName) : Event(id, name, description, date, time, location, maxCap, organizer, eventLength){
     this->companyName = companyName;
     this->recruiterName = recruiterName;
 }
 
-string getCompanyName() const{
+string CareerEvent::getCompanyName() const{
     return companyName;
 }
 
-string getRecruiterName() const{
+string CareerEvent::getRecruiterName() const{
     return recruiterName;
 }
 
-void setCompanyName(string newCompanyName){
+void CareerEvent::setCompanyName(string newCompanyName){
     this->companyName = newCompanyName;
 }
 
-void setRecruiterName(string newRecruiterName){
+void CareerEvent::setRecruiterName(string newRecruiterName){
     this->recruiterName = newRecruiterName;
 }
