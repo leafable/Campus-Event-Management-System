@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-class Event(){
+class Event{
     protected:
     string eventName;  // string that stores the events name
     string eventDescription;  //string that stores what the event is about

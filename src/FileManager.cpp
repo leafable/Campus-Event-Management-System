@@ -1,25 +1,30 @@
 #include <fstream>
 #include <iostream>
-#include <vector>
-#include <string>
 #include <sstream>
+#include <string>
+#include <vector>
 
-#include "FileManager.h"
-
-#include "CareerEvent.h"
-#include "ClubEvent.h"
-#include "SocialEvent.h"
-#include "StudentManagement.h"
+#include "../include/FileManager.h"
+#include "../include/AcademicEvent.h"
+#include "../include/CareerEvent.h"
+#include "../include/ClubEvent.h"
+#include "../include/EventSystem.h"
 #include "../include/Registration.h"
+#include "../include/RegistrationManager.h"
+#include "../include/SocialEvent.h"
 #include "../include/StudentManagement.h"
+
 
 using namespace std;
 
-void FileManager::readStudents(std::string fileName) {
+FileManager::FileManager() {
+    readStudents(studentFile, , );
+}
 
+void FileManager::readStudents(StudentMangement& sm) {
 
     // open the students.txt file
-    std::ifstream enrolled(fileName);
+    std::ifstream enrolled("student.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -59,34 +64,34 @@ void FileManager::readStudents(std::string fileName) {
             continue;
         }
 
-        StudentManagement::addStudent(id, name, email, major);
+        sm.addStudent(id, name, email, major);
     }
 
     enrolled.close();
 }
 
-void FileManager::writeStudents(string fileName, StudentManagement sm) {
+void FileManager::writeStudents(StudentManagement& sm) {
 
-    ofstream enrolled(fileName);
+    ofstream enrolled("students.txt");
 
-    std::vector<Student>* stuPtr = sm.getStudentsPointer();
-
-    if (stuPtr != nullptr) {
-        for (const Student& s : *stuPtr) {
-            enrolled << s.id << "," << s.name << "," << s.email << "," << s.major << '\n';
-        }
-    }
-
-    // for (const Student& s : sm.getStudentVector()) {
-    //     enrolled << s.id << "," << s.name << "," << s.email << "," << s.major << '\n';
+    // std::vector<Student>* stuPtr = sm.getStudentsPointer();
+    //
+    // if (stuPtr != nullptr) {
+    //     for (const Student& s : *stuPtr) {
+    //         enrolled << s.id << "," << s.name << "," << s.email << "," << s.major << '\n';
+    //     }
     // }
+
+    for (const Student& s : sm.getStudentVector()) {
+        enrolled << s.id << "," << s.name << "," << s.email << "," << s.major << '\n';
+    }
 
     close(enrolled);
 }
 
-void FileManager::readEvents(string fileName) {
-    // open the students.txt file
-    std::ifstream eventFile(fileName);
+void FileManager::readEvents(EventSystem& es) {
+    // open the events.txt file
+    std::ifstream eventFile("events.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -164,8 +169,8 @@ void FileManager::readEvents(string fileName) {
     eventFile.close();
 }
 
-void writeEvents(std::string fileName, EventSystem es) {
-    ofstream events(fileName);
+void writeEvents(EventSystem& es) {
+    ofstream events("events.txt");
 
     std::vector<Event>* eventPtr = es.getEventPointer();
 
@@ -179,18 +184,20 @@ void writeEvents(std::string fileName, EventSystem es) {
     //     cout << s.id << "," << s.name << "," << s.email << "," << s.major << '\n';
     // }
 
-    close(enrolled);
+    close(events);
 }
 
-void readOrganizers(std::string fileName) {
+void readOrganizers(Organizer& org) {
 
     // open the students.txt file
-    std::ifstream organizer(fileName);
+    std::ifstream organizer("organizers.txt");
 
     //initialize counter variable to track line read
     int i = 0;
 
     string line;
+
+    getline(organizer, line);
 
     //read all the lines in the file
     while (getline(organizer, line)) {
@@ -225,17 +232,17 @@ void readOrganizers(std::string fileName) {
             continue;
         }
 
-        Organizer::addOrganizer(orgId, name, email, dept);
+        org.addOrganizer(id, name, email, dept);
     }
 
     organizer.close();
 
 }
 
-void writeOrganizers(std::string fileName, Organizer org) {
+void writeOrganizers(Organizer& org) {
 
     //open txt file to save organizers
-    ofstream orgFile(fileName);
+    ofstream orgFile("organizers.txt");
 
     //get a pointer to the vector holding the organizers
     std::vector<Organizer>* orgPtr = org.getOrganizerPointer();
@@ -253,10 +260,10 @@ void writeOrganizers(std::string fileName, Organizer org) {
     close(orgFile);
 }
 
-void readRegistrations(std::string fileName) {
+void readRegistrations(RegistrationManager& rm) {
 
     // open the registration.txt file
-    std::ifstream registration(fileName);
+    std::ifstream registration("registrations.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -298,16 +305,16 @@ void readRegistrations(std::string fileName) {
             continue;
         }
 
-        Registration(SId, EId, regDate, status);
+        rm.addRegistration(Registration(SId, EId, regDate, status));
     }
 
     registration.close();
 }
 
-void writeRegistrations(std::string fileName, RegistrationManager rm) {
+void writeRegistrations(RegistrationManager& rm) {
 
     //open txt file to save registrations
-    ofstream regFile(fileName);
+    ofstream regFile("registration.txt");
 
     //get a pointer to the vector holding the organizers
     // std::vector<Registration>* regPtr = rm.getOrganizerPointer();
