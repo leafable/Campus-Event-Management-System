@@ -283,7 +283,7 @@ void readRegistrations(RegistrationManager& rm) {
         int SId, EId;
 
         //store all CSV in the line to variables
-        getline(ss, studentId, ',');
+        getline(ss, tempSId, ',');
         getline(ss, tempEId, ',');
         getline(ss, regDate, ',');
         getline(ss, status, ',');
@@ -329,7 +329,7 @@ void writeRegistrations(RegistrationManager& rm) {
         regFile << r.studentID << "," << r.eventID << "," << r.registrationDate << "," << r.status << '\n';
     }
 
-    close(regFile);
+    regFile.close();;
 }
 
 
