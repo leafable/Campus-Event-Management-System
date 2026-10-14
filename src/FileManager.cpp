@@ -140,29 +140,41 @@ void FileManager::readEvents(EventSystem& es) {
             string department, speaker;
             getline(ss, department, ',');
             getline(ss, speaker, ',');
-            AcademicEvent(name, description, date, istart, location,
+
+            //creates AcademicEvent object and stores it in an event unique ptr then adds to EventSystem
+            std::unique_ptr<Event> my_event = std::make_unique<AcademicEvent>(name, description, date, istart, location,
                 imaxcap, org, flength, department, speaker);
+            es.push_back(move(my_event));
         }
         else if (description == "Career Event") {
             string company, recruiter;
             getline(ss, company, ',');
             getline(ss, recruiter, ',');
-            CareerEvent(name, description, date, istart, location,
+
+            //creates CareerEvent object and stores it in an event unique ptr then adds to EventSystem
+            std::unique_ptr<Event> my_event = std::make_unique<CareerEvent>(name, description, date, istart, location,
                 imaxcap, org, flength, company, recruiter);
+            es.push_back(move(my_event));
         }
         else if (description == "Club Event") {
-            string department, speaker;
-            getline(ss, department, ',');
-            getline(ss, speaker, ',');
-            ClubEvent(name, description, date, istart, location,
-                imaxcap, org, flength, department, speaker);
+            string club;
+            getline(ss, club, ',');
+
+            //creates ClubEvent object and stores it in an event unique ptr then adds to EventSystem
+            std::unique_ptr<Event> my_event = std::make_unique<ClubEvent>(name, description, date, istart, location,
+                imaxcap, org, flength, club);
+            es.push_back(move(my_event));
         }
         else if (description == "Social Event") {
-            string department, speaker;
-            getline(ss, department, ',');
-            getline(ss, speaker, ',');
-            SocialEvent(name, description, date, istart, location,
-                imaxcap, org, flength, department, speaker);
+            string tempBool;
+            getline(ss, tempBool, ',');
+            bool fancy = stoi(tempBool); //converts string to integer then boolean
+
+            //creates Social Event object and stores it in an event unique ptr then adds to EventSystem
+            std::unique_ptr<Event> my_event = std::make_unique<SocialEvent>(name, description, date, istart, location,
+                imaxcap, org, flength, fancy);
+            es.push_back(move(my_event));
+
         }
         else {
             cerr << "Error reading event type. Skipped line: " << i << endl;
@@ -336,6 +348,3 @@ void FileManager::writeRegistrations(RegistrationManager& rm) {
 
     regFile.close();;
 }
-
-
-
