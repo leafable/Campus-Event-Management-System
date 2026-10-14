@@ -348,3 +348,10 @@ void FileManager::writeRegistrations(RegistrationManager& rm) {
 
     regFile.close();;
 }
+
+void saveData(StudentManagement& stm, EventSystem& evs, OrganizerManagement& orgs, RegistrationManager& regm) {
+    writeStudents(stm);
+    writeEvents(evs);
+    writeOrganizers(orgs);
+    writeRegistrations(regm);
+}
