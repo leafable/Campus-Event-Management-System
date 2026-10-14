@@ -1,27 +1,24 @@
-#pragma once
 
+#pragma once
 #include <vector>
+#include <memory>
 #include "Event.h"
 #include "RegistrationManager.h"
 
 using namespace std;
 
-class ReportManager
-{
+class ReportManager {
 public:
-    void showAvailableEvents(
-        vector<Event>& events,
-        const RegistrationManager& registrations);
+    void showAvailableEvents(const vector<unique_ptr<Event>>& events,
+                             const RegistrationManager& registrations);
 
-    void showFullEvents(
-        vector<Event>& events,
-        const RegistrationManager& registrations);
+    void showFullEvents(const vector<unique_ptr<Event>>& events,
+                        const RegistrationManager& registrations);
 
-    void showRegistrationCounts(
-        vector<Event>& events,
-        const RegistrationManager& registrations);
+    void showRegistrationCounts(const vector<unique_ptr<Event>>& events,
+                                const RegistrationManager& registrations);
 
-    void showMostPopularEvent(
-       vector<Event>& events,
-        const RegistrationManager& registrations);
+    void showMostPopularEvent(const vector<unique_ptr<Event>>& events,
+                              const RegistrationManager& registrations);
 };
+
