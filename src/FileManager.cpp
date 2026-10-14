@@ -111,11 +111,11 @@ void FileManager::readEvents(EventSystem& es) {
         stringstream ss(line);
 
         //declare all holding variables
-        string name, description, date, location, org, start, maxcap, length;
-        int istart, imaxcap;
-        float flength;
+        string tempId, name, description, date, location, org, start, maxcap, length;
+        int imaxcap, id;
 
         //store all CSV in the line to variables
+        getline(ss, tempId, ',');
         getline(ss, name, ',');
         getline(ss, description, ',');
         getline(ss, date, ',');
@@ -123,14 +123,17 @@ void FileManager::readEvents(EventSystem& es) {
         getline(ss, location, ',');
         getline(ss, maxcap, ',');
         getline(ss, org, ',');
-        if (!getline(ss, length, ',')) {
-            cerr << "Missing data in line: " << i << endl;
-            continue;
-        }
+        getline(ss, length, ',');
+
+        // if (!getline(ss, length, ',')) {
+        //     cerr << "Missing data in line: " << i << endl;
+        //     continue;
+        // }
 
         //convert numerical strings to proper data types
         try {
             imaxcap = stoi(maxcap);
+            id = stoi(tempId);
         } catch (const exception &e) {
             cerr << "Error reading numerical values. Skipped line: " << i << endl;
             continue;
@@ -142,9 +145,9 @@ void FileManager::readEvents(EventSystem& es) {
             getline(ss, speaker, ',');
 
             //creates AcademicEvent object and stores it in an event unique ptr then adds to EventSystem
-            std::unique_ptr<Event> my_event = std::make_unique<AcademicEvent>(name, description, date, istart, location,
-                imaxcap, org, flength, department, speaker);
-            es.push_back(move(my_event));
+            std::unique_ptr<Event> my_event = std::make_unique<AcademicEvent>(id, name, description, date, start, location,
+                imaxcap, org, length, department, speaker);
+            es.createEvent(std::move(my_event));
         }
         else if (description == "Career Event") {
             string company, recruiter;
@@ -152,18 +155,18 @@ void FileManager::readEvents(EventSystem& es) {
             getline(ss, recruiter, ',');
 
             //creates CareerEvent object and stores it in an event unique ptr then adds to EventSystem
-            std::unique_ptr<Event> my_event = std::make_unique<CareerEvent>(name, description, date, istart, location,
-                imaxcap, org, flength, company, recruiter);
-            es.push_back(move(my_event));
+            std::unique_ptr<Event> my_event = std::make_unique<CareerEvent>(id, name, description, date, start, location,
+                imaxcap, org, length, company, recruiter);
+            es.createEvent(std::move(my_event));
         }
         else if (description == "Club Event") {
             string club;
             getline(ss, club, ',');
 
             //creates ClubEvent object and stores it in an event unique ptr then adds to EventSystem
-            std::unique_ptr<Event> my_event = std::make_unique<ClubEvent>(name, description, date, istart, location,
-                imaxcap, org, flength, club);
-            es.push_back(move(my_event));
+            std::unique_ptr<Event> my_event = std::make_unique<ClubEvent>(id, name, description, date, start, location,
+                imaxcap, org, length, club);
+            es.createEvent(std::move(my_event));
         }
         else if (description == "Social Event") {
             string tempBool;
@@ -171,9 +174,9 @@ void FileManager::readEvents(EventSystem& es) {
             bool fancy = stoi(tempBool); //converts string to integer then boolean
 
             //creates Social Event object and stores it in an event unique ptr then adds to EventSystem
-            std::unique_ptr<Event> my_event = std::make_unique<SocialEvent>(name, description, date, istart, location,
-                imaxcap, org, flength, fancy);
-            es.push_back(move(my_event));
+            std::unique_ptr<Event> my_event = std::make_unique<SocialEvent>(id, name, description, date, start, location,
+                imaxcap, org, length, fancy);
+            es.createEvent(std::move(my_event));
 
         }
         else {
@@ -189,17 +192,37 @@ void FileManager::readEvents(EventSystem& es) {
 void FileManager::writeEvents(EventSystem& es) {
     ofstream events("events.txt");
 
-    std::vector<Event>* eventPtr = es.getEventPointer();
+    std::vector<Event>* eventPtr = es.getEventsPointer();
 
-    if (eventPtr != nullptr) {
-        for (const Event& e : *eventPtr) {
-            cout << e.id << "," << e.name << "," << e.email << "," << e.major << '\n';
+
+    for (Event* e : es.getEventsVector()) {
+
+        events <<  e->getEventId() << "," <<  e->getEventName() << "," << e->getEventDescription() << ","
+        << e->getEventDate() << "," << e->getEventTime() << "," <<  e->getEventLocation() << ","
+        << e->getEventMaxCapacity() << "," << e->getOrganizer();
+
+        // Determine type of event and write event specific data
+        if (e->getEventDescription() == "Academic Event")
+        {
+            AcademicEvent* ePtr = dynamic_cast<AcademicEvent*>(e);
+            events << "," << ePtr->getDepartment() << "," << ePtr->getSpeaker() << endl;
+        }
+        else if (e->getEventDescription() == "Career Event")
+        {
+            CareerEvent* ePtr = dynamic_cast<CareerEvent*>(e);
+            events << "," << ePtr->getCompanyName() << "," << ePtr->getRecruiterName() << endl;
+        }
+        else if (e->getEventDescription() == "Club Event")
+        {
+            ClubEvent* ePtr = dynamic_cast<ClubEvent*>(e);
+            events << "," << ePtr->getClub() << '\n';
+        }
+        else if (e->getEventDescription() == "Social Event")
+        {
+            SocialEvent* ePtr = dynamic_cast<SocialEvent*>(e);
+            events << "," << ePtr->getIfFancy() << '\n';
         }
     }
-
-    // for (const Event& e : es.getStudentVector()) {
-    //     cout << s.id << "," << s.name << "," << s.email << "," << s.major << '\n';
-    // }
 
     events.close();
 }
