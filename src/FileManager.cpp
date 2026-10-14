@@ -13,15 +13,20 @@
 #include "../include/RegistrationManager.h"
 #include "../include/SocialEvent.h"
 #include "../include/StudentManagement.h"
+#include "../include/OrganizerManagement.h"
 
 
 using namespace std;
 
-FileManager::FileManager() {
-    readStudents(studentFile, , );
+FileManager::FileManager(StudentManagement& stm, EventSystem& evs, OrganizerManagement& orgs, RegistrationManager& regm) {
+    readStudents(stm);
+    readEvents(evs);
+    readOrganizers(orgs);
+    readRegistrations(regm);
 }
 
-void FileManager::readStudents(StudentMangement& sm) {
+
+void FileManager::readStudents(StudentManagement& sm) {
 
     // open the students.txt file
     std::ifstream enrolled("student.txt");
@@ -169,7 +174,7 @@ void FileManager::readEvents(EventSystem& es) {
     eventFile.close();
 }
 
-void writeEvents(EventSystem& es) {
+void FileManager::writeEvents(EventSystem& es) {
     ofstream events("events.txt");
 
     std::vector<Event>* eventPtr = es.getEventPointer();
@@ -187,7 +192,7 @@ void writeEvents(EventSystem& es) {
     events.close();
 }
 
-void readOrganizers(Organizer& org) {
+void FileManager::readOrganizers(OrganizerManagement& org) {
 
     // open the students.txt file
     std::ifstream organizer("organizers.txt");
@@ -232,14 +237,14 @@ void readOrganizers(Organizer& org) {
             continue;
         }
 
-        org.addOrganizer(id, name, email, dept);
+        org.addOrganizer(name, id, email, dept);
     }
 
     organizer.close();
 
 }
 
-void writeOrganizers(Organizer& org) {
+void FileManager::writeOrganizers(OrganizerManagement& org) {
 
     //open txt file to save organizers
     ofstream orgFile("organizers.txt");
@@ -260,7 +265,7 @@ void writeOrganizers(Organizer& org) {
     orgFile.close();
 }
 
-void readRegistrations(RegistrationManager& rm) {
+void FileManager::readRegistrations(RegistrationManager& rm) {
 
     // open the registration.txt file
     std::ifstream registration("registrations.txt");
@@ -311,7 +316,7 @@ void readRegistrations(RegistrationManager& rm) {
     registration.close();
 }
 
-void writeRegistrations(RegistrationManager& rm) {
+void FileManager::writeRegistrations(RegistrationManager& rm) {
 
     //open txt file to save registrations
     ofstream regFile("registration.txt");
