@@ -86,7 +86,7 @@ void FileManager::writeStudents(StudentManagement& sm) {
         enrolled << s.id << "," << s.name << "," << s.email << "," << s.major << '\n';
     }
 
-    close(enrolled);
+    enrolled.close();
 }
 
 void FileManager::readEvents(EventSystem& es) {
@@ -184,7 +184,7 @@ void writeEvents(EventSystem& es) {
     //     cout << s.id << "," << s.name << "," << s.email << "," << s.major << '\n';
     // }
 
-    close(events);
+    events.close();
 }
 
 void readOrganizers(Organizer& org) {
@@ -257,7 +257,7 @@ void writeOrganizers(Organizer& org) {
     //     orgFile << o.id << "," << o.name << "," << o.email << "," << o.dept << '\n';
     // }
 
-    close(orgFile);
+    orgFile.close();
 }
 
 void readRegistrations(RegistrationManager& rm) {
