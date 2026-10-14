@@ -10,13 +10,6 @@ class RegistrationManager;
 
 class FileManager {
 
-    private:
-    // StudentManagement& sm;
-    // EventSystem& es;
-    // OrganizerManagement& org;
-    // RegistrationManager& rm;
-
-
     public:
     FileManager(StudentManagement& stm, EventSystem& evs, OrganizerManagement& orgs, RegistrationManager& regm);
     ~FileManager();
@@ -28,6 +21,7 @@ class FileManager {
     void writeOrganizers(OrganizerManagement& org);
     void readRegistrations(RegistrationManager& rm);
     void writeRegistrations(RegistrationManager& rm);
+    void saveData(StudentManagement& stm, EventSystem& evs, OrganizerManagement& orgs, RegistrationManager& regm);
 
     private:
 
