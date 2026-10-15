@@ -10,6 +10,10 @@ void processSelection(int selection, System& system);
 int main()
 {
     System system;
+    
+    EventSystem events;
+    RegistrationManager registrations;
+    
     int selection{};
 
    do {
@@ -152,7 +156,7 @@ void processSelection(int selection, System& system)
 
         case 4:
             break;
-
+ 
         case 5:
             break;
 

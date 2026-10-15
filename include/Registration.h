@@ -13,11 +13,13 @@ private:
 
 public:
     Registration();
+    
 
     Registration(int studentID, int eventID,
                  const std::string& registrationDate,
                  bool status = 1);
 
+    
     int getStudentID() const;
     int getEventID() const;
     const std::string& getRegistrationDate() const;

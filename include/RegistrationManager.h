@@ -22,7 +22,7 @@ public:
     bool addRegistration(const Registration& registration, int MaxCapacity);
 
     // Returns true only if the student has an active (not cancelled) registration
-    bool isRegistered(int studentID, int eventID) const;
+    bool isRegistered(int studentID, int eventID) const;    
 
     bool isFull(int eventID, int maxCapacity) const;
 
