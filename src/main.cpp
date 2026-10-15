@@ -1,6 +1,8 @@
 #include <iostream>
 #include <limits>
 #include "../include/System.h"
+#include "../include/ReportManager.h"
+#include "../include/EventSystem.h"
 
 using namespace std;
 
@@ -94,9 +96,28 @@ void processSelection(int selection)
             cout << "View Organizers selected.\n";
             break;
 
-        case 11:
-            cout << "System Reports selected.\n";
-            break;
+      case 11:
+{
+    cout << "\n===== System Reports =====\n";
+
+    ReportManager reports;
+
+    cout << "1. Available Events\n";
+    cout << "2. Full Events\n";
+    cout << "3. Registration Counts\n";
+    cout << "4. Most Popular Event\n";
+
+    cout << "\nReport selection: ";
+
+    int reportChoice;
+    cin >> reportChoice;
+
+    cout << "Report option " << reportChoice
+         << " selected.\n";
+
+    break;
+}
+        
 
         case 0:
             cout << "Exiting program.\n";
