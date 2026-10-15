@@ -13,7 +13,7 @@ private:
     friend class FileManager;
 public:
     Student();
-    Student(const int& id, const string& name, const string& email, const string& major);
+    Student(const int id, const string& name, const string& email, const string& major);
     int getId() const;
     string getName() const;
     string getEmail() const;

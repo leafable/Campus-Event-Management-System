@@ -9,7 +9,7 @@ void EventSystem::createEvent(unique_ptr<Event> event)
 {
     events.push_back(std::move(event));
 }
-int EventSystem::findEventById(const int& id) const
+int EventSystem::findEventById(const int id) const
 {
     for (int i = 0; i < events.size(); i++)
     {
@@ -20,7 +20,7 @@ int EventSystem::findEventById(const int& id) const
     }
     return -1;
 }
-void EventSystem::displayEvent(const int& id) const
+void EventSystem::displayEvent(const int id) const
 {
     int index = findEventById(id);
     if (index != -1)
