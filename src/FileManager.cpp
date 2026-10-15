@@ -87,7 +87,7 @@ void FileManager::writeStudents(StudentManagement& sm) {
     //     }
     // }
 
-    for (const Student& s : sm.getStudentsVector()) {
+    for (const Student& s : sm.getStudentVector()) {
         enrolled << s.id << "," << s.name << "," << s.email << "," << s.major << '\n';
     }
 
@@ -192,7 +192,7 @@ void FileManager::readEvents(EventSystem& es) {
 void FileManager::writeEvents(EventSystem& es) {
     ofstream events("events.txt");
 
-    vector<unique_ptr<Event>>* eventsPtr = es.getEventsPointer();
+    vector<unique_ptr<Event>> *eventsPtr = es.getEventsPointer();
 
     if (eventsPtr != nullptr) {
         for (unique_ptr<Event>& e : *eventsPtr) {
@@ -286,10 +286,12 @@ void FileManager::writeOrganizers(OrganizerManagement& org) {
     ofstream orgFile("organizers.txt");
 
     //get a pointer to the vector holding the organizers
-    std::vector<Organizer> orgPtr = org.getOrganizerVector();
+    const vector<Organizer> *orgPtr = org.getOrganizersPointer();
 
-    for (const Organizer& o : orgPtr) {
-        orgFile << o.organizerId << "," << o.name << "," << o.email << "," << o.department << '\n';
+    if (orgPtr != nullptr) {
+        for (const Organizer& o : *orgPtr) {
+            orgFile << o.getOrganizerId() << "," << o.getName() << "," << o.getEmail() << "," << o.getDepartment() << '\n';
+        }
     }
 
     // for (const Organizer& s : org.getStudentVector()) {
