@@ -192,10 +192,10 @@ void FileManager::readEvents(EventSystem& es) {
 void FileManager::writeEvents(EventSystem& es) {
     ofstream events("events.txt");
 
-    vector<unique_ptr<Event>> *eventsPtr = es.getEventsPointer();
+    const vector<unique_ptr<Event>> *eventsPtr = es.getEventsPointer();
 
     if (eventsPtr != nullptr) {
-        for (unique_ptr<Event>& e : *eventsPtr) {
+        for (const unique_ptr<Event>& e : *eventsPtr) {
 
             events <<  e->getEventId() << "," <<  e->getEventName() << "," << e->getEventDescription() << ","
             << e->getEventDate() << "," << e->getEventTime() << "," <<  e->getEventLocation() << ","
