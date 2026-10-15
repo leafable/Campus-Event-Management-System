@@ -78,3 +78,14 @@ void Event::setLocation(string newLocation){
 int Event::getEventId() const{
     return id;
 }
+
+void Event::printDetails() const {
+    cout << "Event ID: " << getEventId() << endl;
+    cout << "Name: " << getEventName() << endl;
+    cout << "Description: " << getEventDescription() << endl;
+    cout << "Date: " << getEventDate() << endl;
+    cout << "Time: " << getEventTime() << endl;
+    cout << "Location: " << getEventLocation() << endl;
+    cout << "Capacity: " << getEventMaxCapacity() << endl;
+    cout << "Organizer: " << getOrganizer() << endl;
+}

@@ -3,12 +3,13 @@
 #include "../include/ClubEvent.h"
 #include "../include/CareerEvent.h"
 #include "../include/SocialEvent.h"
+#include <utility>
 
 void EventSystem::createEvent(unique_ptr<Event> event)
 {
-    events.push_back(event);
+    events.push_back(std::move(event));
 }
-int EventSystem::findEventById(const int& id)
+int EventSystem::findEventById(const int& id) const
 {
     for (int i = 0; i < events.size(); i++)
     {
@@ -19,96 +20,31 @@ int EventSystem::findEventById(const int& id)
     }
     return -1;
 }
-void EventSystem::displayEvent(const int& id)
+void EventSystem::displayEvent(const int& id) const
 {
     int index = findEventById(id);
     if (index != -1)
     {
-        // Shared event data
-        cout << "Event ID: " << events[index]->getEventId() << endl;
-        cout << "Name: " << events[index]->getEventName() << endl;
-        cout << "Description: " << events[index]->getEventDescription() << endl;
-        cout << "Date: " << events[index]->getEventDate() << endl;
-        cout << "Time: " << events[index]->getEventTime() << endl;
-        cout << "Location: " << events[index]->getEventLocation() << endl;
-        cout << "Capacity: " << events[index]->getEventMaxCapacity() << endl;
-        cout << "Organizer: " << events[index]->getOrganizer() << endl;
-
-        // Derived event data
-        if (events[index]->getEventDescription() == "Academic Event")
-        {
-            AcademicEvent* eventPtr = dynamic_cast<AcademicEvent*>(events[index].get());
-            cout << "Department: " << eventPtr->getDepartment() << endl;
-            cout << "Speaker: " << eventPtr->getSpeaker() << endl;
-        }
-        else if (events[index]->getEventDescription() == "Career Event")
-        {
-            CareerEvent* eventPtr = dynamic_cast<CareerEvent*>(events[index].get());
-            cout << "Company: " << eventPtr->getCompanyName() << endl;
-            cout << "Recruiter: " << eventPtr->getRecruiterName() << endl;
-        }
-        else if (events[index]->getEventDescription() == "Club Event")
-        {
-            ClubEvent* eventPtr = dynamic_cast<ClubEvent*>(events[index].get());
-            cout << "Club: " << eventPtr->getClub() << endl;
-        }
-        else if (events[index]->getEventDescription() == "Social Event")
-        {
-            SocialEvent* eventPtr = dynamic_cast<SocialEvent*>(events[index].get());
-            cout << "Fancy: " << (eventPtr->getIfFancy() ? "True" : "False") << endl;
-        }
+        events[index]->printDetails();
     }
     else
     {
         cerr << "Error: Event not found." << endl;
     }
 }
-void EventSystem::displayEvent(const string& name)
+void EventSystem::displayEvent(const string& name) const
 {
     int index = findEventByName(name);
     displayEvent(index);
 }
-void EventSystem::displayAllEvents()
-{
-    for (int index = 0; index < events.size(); index++)
+void EventSystem::displayAllEvents() const {
+    for (const auto& event : events)
     {
-        // Shared event data
-        cout << "Event ID: " << events[index]->getEventId() << endl;
-        cout << "Name: " << events[index]->getEventName() << endl;
-        cout << "Description: " << events[index]->getEventDescription() << endl;
-        cout << "Date: " << events[index]->getEventDate() << endl;
-        cout << "Time: " << events[index]->getEventTime() << endl;
-        cout << "Location: " << events[index]->getEventLocation() << endl;
-        cout << "Capacity: " << events[index]->getEventMaxCapacity() << endl;
-        cout << "Organizer: " << events[index]->getOrganizer() << endl;
-
-        // Derived event data
-        if (events[index]->getEventDescription() == "Academic Event")
-        {
-            AcademicEvent* eventPtr = dynamic_cast<AcademicEvent*>(events[index].get());
-            cout << "Department: " << eventPtr->getDepartment() << endl;
-            cout << "Speaker: " << eventPtr->getSpeaker() << endl;
-        }
-        else if (events[index]->getEventDescription() == "Career Event")
-        {
-            CareerEvent* eventPtr = dynamic_cast<CareerEvent*>(events[index].get());
-            cout << "Company: " << eventPtr->getCompanyName() << endl;
-            cout << "Recruiter: " << eventPtr->getRecruiterName() << endl;
-        }
-        else if (events[index]->getEventDescription() == "Club Event")
-        {
-            ClubEvent* eventPtr = dynamic_cast<ClubEvent*>(events[index].get());
-            cout << "Club: " << eventPtr->getClub() << endl;
-        }
-        else if (events[index]->getEventDescription() == "Social Event")
-        {
-            SocialEvent* eventPtr = dynamic_cast<SocialEvent*>(events[index].get());
-            cout << "Fancy: " << (eventPtr->getIfFancy() ? "True" : "False") << endl;
-        }
+        event->printDetails();
+        cout << endl;
     }
 }
-int EventSystem::findEventByName(const string& name)
-{
+int EventSystem::findEventByName(const string& name) const {
     for (int i = 0; i < events.size(); i++)
     {
         if (events[i]->getEventName() == name)
@@ -118,3 +54,8 @@ int EventSystem::findEventByName(const string& name)
     }
     return -1;
 }
+
+const vector<unique_ptr<Event>>& EventSystem::getEventVector() const {
+    return events;
+}
+

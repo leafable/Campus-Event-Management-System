@@ -6,6 +6,7 @@ class StudentManagement {
 private:
     vector<Student> students;
     static int numStudents;
+    friend class FileManager;
 public:
     StudentManagement();
     void addStudent(const Student& student);
@@ -13,9 +14,8 @@ public:
     int findById(const int& id) const;
     void displayStudent(const int& id) const;
     void displayAllStudents() const;
-    void printCSV() const;
     bool isDuplicateId(const int& id) const;
     bool studentExists(const int& id) const;
-    int getNumStudents() const;
-    const vector<Student> StudentManagement::getStudentsVector();
+    static int getNumStudents();
+    const vector<Student>& getStudentVector();
 };

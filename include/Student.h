@@ -10,6 +10,7 @@ private:
     string name;
     string email;
     string major;
+    friend class FileManager;
 public:
     Student();
     Student(const int& id, const string& name, const string& email, const string& major);
