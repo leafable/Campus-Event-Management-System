@@ -5,7 +5,7 @@ int OrganizerManagement::numOrganizers = 0;
 OrganizerManagement::OrganizerManagement()
 {
 }
-void OrganizerManagement::addOrganizer(const string& name, const int& organizerId, const string& email, const string& department)
+void OrganizerManagement::addOrganizer(const string& name, const int organizerId, const string& email, const string& department)
 {
     organizer.push_back(Organizer(name, organizerId, email, department));
     numOrganizers++;

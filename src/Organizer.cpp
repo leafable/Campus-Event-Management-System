@@ -1,6 +1,6 @@
 #include "Organizer.h"
 
-Organizer::Organizer(const string& name, const int& organizerId, const string& email, const string& department) {
+Organizer::Organizer(const string& name, const int organizerId, const string& email, const string& department) {
     this->name = name;
     this->organizerId = organizerId;
     this->email = email;
