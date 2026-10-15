@@ -3,20 +3,27 @@
 #include "../include/System.h"
 #include "../include/ReportManager.h"
 #include "../include/EventSystem.h"
+#include "../include/RegistrationManager.h"
 
 using namespace std;
 
 int getSelection();
-void processSelection(int selection);
+void processSelection(int selection,
+EventSystem& events,
+RegistrationManager& registrations);
 
 int main()
 {
     System system;
+    
+    EventSystem events;
+    RegistrationManager registrations;
+    
     int selection{};
     
    do {
        selection = getSelection();
-       processSelection(selection);
+       processSelection(selection, events, registrations);
    }
        
     while (selection != 0);
@@ -53,7 +60,9 @@ int getSelection()
     return selection;
 }
 
-void processSelection(int selection)
+void processSelection(int selection,
+EventSystem& events,
+RegistrationManager& registrations)
 {
     switch (selection) {
         case 1:
@@ -96,7 +105,7 @@ void processSelection(int selection)
             cout << "View Organizers selected.\n";
             break;
 
-      case 11:
+    case 11:
 {
     cout << "\n===== System Reports =====\n";
 
@@ -110,10 +119,35 @@ void processSelection(int selection)
     cout << "\nReport selection: ";
 
     int reportChoice;
-    cin >> reportChoice;
+    if (!(cin >> reportChoice)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid report selection.\n";
+        break;
+    }
 
-    cout << "Report option " << reportChoice
-         << " selected.\n";
+    const auto& eventList = *events.getEventsPointer();
+
+    switch (reportChoice) {
+        case 1:
+            reports.showAvailableEvents(eventList, registrations);
+            break;
+
+        case 2:
+            reports.showFullEvents(eventList, registrations);
+            break;
+
+        case 3:
+            reports.showRegistrationCounts(eventList, registrations);
+            break;
+
+        case 4:
+            reports.showMostPopularEvent(eventList, registrations);
+            break;
+
+        default:
+            cout << "Invalid report selection.\n";
+    }
 
     break;
 }
