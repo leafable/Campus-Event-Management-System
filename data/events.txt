@@ -28,7 +28,7 @@
 28,Club Activity 8,Club Event,2027-02-08,16:00,Room 208,30,Physics Club,2,Gaming Club
 29,Club Activity 9,Club Event,2027-04-20,13:00,Room 108,10,Chemistry Alliance,0.25,Debate Club
 30,Club Activity 10,Club Event,2027-04-23,16:00,Room 207,30,English Literature Society,1.25,Chess Club
-31,Social Gathering 1,Social Event,2027-04-22,10:00,Room 107,20,Computer Science Club,0.75,TRUE
+31,Social Gathering 1,Social Event,2027-04-22,10:00,Room 107,20,Computer Science Club,0.75,1
 32,Social Gathering 2,Social Event,2027-05-04,09:00,Room 210,10,Business Leaders Association,2,0
 33,Social Gathering 3,Social Event,2027-03-26,10:00,Room 202,10,Biology Society,1.75,0
 34,Social Gathering 4,Social Event,2027-05-10,15:00,Room 106,10,Mathematics Association,0.5,1

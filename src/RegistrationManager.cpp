@@ -17,7 +17,7 @@ int RegistrationManager::findIndex(int studentID, int eventID) const
     return -1;
 }
 
-bool RegistrationManager::addRegistration(const Registration& registration, int maxCapacity)
+bool RegistrationManager::addRegistration(const Registration& registration)
 {
     // check if student is not already actively registered for this event
     if (isRegistered(registration.getStudentID(), registration.getEventID()))
@@ -25,11 +25,11 @@ bool RegistrationManager::addRegistration(const Registration& registration, int 
         return false;
     }
 
-    // check if event still has space
-    if (isFull(registration.getEventID(), maxCapacity))
-    {
-        return false;
-    }
+    // // check if event still has space
+    // if (isFull(registration.getEventID(), maxCapacity))
+    // {
+    //     return false;
+    // }
 
     // check if student cancelled and rewrites that to avoid duplicate entries
     int index = findIndex(registration.getStudentID(), registration.getEventID());

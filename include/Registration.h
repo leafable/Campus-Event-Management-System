@@ -9,21 +9,21 @@ private:
     int studentID;
     int eventID;
     std::string registrationDate;
-    std::string status;
+    bool status;
 
 public:
     Registration();
 
     Registration(int studentID, int eventID,
                  const std::string& registrationDate,
-                 const std::string& status = "Registered");
+                 bool status = 1);
 
     int getStudentID() const;
     int getEventID() const;
     const std::string& getRegistrationDate() const;
-    const std::string& getStatus() const;
+    const bool getStatus() const;
 
-    void setStatus(const std::string& status);
+    void setStatus(bool status);
 };
 
 #endif

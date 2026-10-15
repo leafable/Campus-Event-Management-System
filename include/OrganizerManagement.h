@@ -7,7 +7,6 @@ class OrganizerManagement
 {
 private:
     vector<Organizer> organizer;
-    vector<Event&> events;
     static int numOrganizers;
 public:
     OrganizerManagement();

@@ -12,7 +12,6 @@ class FileManager {
 
     public:
     FileManager(StudentManagement& stm, EventSystem& evs, OrganizerManagement& orgs, RegistrationManager& regm);
-    ~FileManager();
     void readStudents(StudentManagement& sm);
     void writeStudents(StudentManagement& sm);
     void readEvents(EventSystem& es);

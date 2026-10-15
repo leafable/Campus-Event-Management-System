@@ -18,7 +18,7 @@ private:
 public:
     // Returns false if this student is already actively registered OR the event is full.
     // If the student previously cancelled, their registration is reactivated.
-    bool addRegistration(const Registration& registration, int MaxCapacity);
+    bool addRegistration(const Registration& registration);
 
     // Returns true only if the student has an active (not cancelled) registration
     bool isRegistered(int studentID, int eventID) const;
