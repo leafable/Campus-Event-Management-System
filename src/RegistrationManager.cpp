@@ -42,14 +42,14 @@ bool RegistrationManager::addRegistration(const Registration& registration, int 
     registrations.push_back(registration);
     return true;
 }
- 
+
 // used only by FileManager when loading saved registrations from the file:
 // these were already checked when they were first made, so they go straight into the vector
 void RegistrationManager::loadRegistration(const Registration& registration)
 {
     registrations.push_back(registration);
 }
- 
+
 bool RegistrationManager::isRegistered(int studentID, int eventID) const
 {
     int index = findIndex(studentID, eventID);

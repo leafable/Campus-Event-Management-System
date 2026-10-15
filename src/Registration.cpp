@@ -3,13 +3,13 @@
 using namespace std;
 
 Registration::Registration()
-    : studentID(0), eventID(0), registrationDate(""), status(true)
+    : studentID(0), eventID(0), registrationDate(""), status(1)
 {
 }
 
 Registration::Registration(int studentID, int eventID,
                            const string& registrationDate,
-                           const bool status)
+                           bool status)
     : studentID(studentID), eventID(eventID),
       registrationDate(registrationDate), status(status)
 {

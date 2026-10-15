@@ -25,11 +25,10 @@ FileManager::FileManager(StudentManagement& stm, EventSystem& evs, OrganizerMana
     readRegistrations(regm);
 }
 
-
 void FileManager::readStudents(StudentManagement& sm) {
 
     // open the students.txt file
-    std::ifstream enrolled("student.txt");
+    std::ifstream enrolled("..\\data\\students.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -52,14 +51,13 @@ void FileManager::readStudents(StudentManagement& sm) {
         getline(ss, tempId, ',');
         getline(ss, name, ',');
         getline(ss, email, ',');
+        getline(ss, major);
 
         //Check if current row is missing a data member
         if (email.empty() && !getline(ss, major, ',')) {
             cerr << "Error! There is data missing from line " << i << endl;
             continue;
         }
-
-
 
         //convert tempId to int id and catch errors
         try {
@@ -77,7 +75,7 @@ void FileManager::readStudents(StudentManagement& sm) {
 
 void FileManager::writeStudents(StudentManagement& sm) {
 
-    ofstream enrolled("students.txt");
+    ofstream enrolled("..\\data\\students.txt");
 
     // std::vector<Student>* stuPtr = sm.getStudentsPointer();
     //
@@ -96,7 +94,7 @@ void FileManager::writeStudents(StudentManagement& sm) {
 
 void FileManager::readEvents(EventSystem& es) {
     // open the events.txt file
-    std::ifstream eventFile("events.txt");
+    std::ifstream eventFile("..\\data\\events.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -190,7 +188,7 @@ void FileManager::readEvents(EventSystem& es) {
 }
 
 void FileManager::writeEvents(EventSystem& es) {
-    ofstream events("events.txt");
+    ofstream events("..\\data\\events.txt");
 
     const vector<unique_ptr<Event>> *eventsPtr = es.getEventsPointer();
 
@@ -231,7 +229,7 @@ void FileManager::writeEvents(EventSystem& es) {
 void FileManager::readOrganizers(OrganizerManagement& org) {
 
     // open the students.txt file
-    std::ifstream organizer("organizers.txt");
+    std::ifstream organizer("..\\data\\organizers.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -283,7 +281,7 @@ void FileManager::readOrganizers(OrganizerManagement& org) {
 void FileManager::writeOrganizers(OrganizerManagement& org) {
 
     //open txt file to save organizers
-    ofstream orgFile("organizers.txt");
+    ofstream orgFile("..\\data\\organizers.txt");
 
     //get a pointer to the vector holding the organizers
     const vector<Organizer> *orgPtr = org.getOrganizersPointer();
@@ -303,8 +301,8 @@ void FileManager::writeOrganizers(OrganizerManagement& org) {
 
 void FileManager::readRegistrations(RegistrationManager& rm) {
 
-    // open the registration.txt file
-    std::ifstream registration("registrations.txt");
+    // open the registrations.txt file
+    std::ifstream registration("..\\data\\registrations.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -357,7 +355,7 @@ void FileManager::readRegistrations(RegistrationManager& rm) {
 void FileManager::writeRegistrations(RegistrationManager& rm) {
 
     //open txt file to save registrations
-    ofstream regFile("registrations.txt");
+    ofstream regFile("..\\data\\registrations.txt");
 
     //get a pointer to the vector holding the organizers
     // std::vector<Registration>* regPtr = rm.getOrganizerPointer();

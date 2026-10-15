@@ -17,7 +17,7 @@ public:
 
     Registration(int studentID, int eventID,
                  const std::string& registrationDate,
-                 const bool status = true);
+                 bool status = 1);
 
     
     int getStudentID() const;
@@ -25,7 +25,7 @@ public:
     const std::string& getRegistrationDate() const;
     const bool getStatus() const;
 
-    void setStatus(const bool status);
+    void setStatus(bool status);
 };
 
 #endif

@@ -1,8 +1,9 @@
 #include "OrganizerManagement.h"
 
+int OrganizerManagement::numOrganizers = 0;
+
 OrganizerManagement::OrganizerManagement()
 {
-    numOrganizers = 0;
 }
 void OrganizerManagement::addOrganizer(const string& name, const int& organizerId, const string& email, const string& department)
 {
