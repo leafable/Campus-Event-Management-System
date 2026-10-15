@@ -28,7 +28,7 @@ FileManager::FileManager(StudentManagement& stm, EventSystem& evs, OrganizerMana
 void FileManager::readStudents(StudentManagement& sm) {
 
     // open the students.txt file
-    std::ifstream enrolled("..\\data\\students.txt");
+    std::ifstream enrolled("data/students.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -75,7 +75,7 @@ void FileManager::readStudents(StudentManagement& sm) {
 
 void FileManager::writeStudents(StudentManagement& sm) {
 
-    ofstream enrolled("..\\data\\students.txt");
+    ofstream enrolled("data/students.txt");
 
     // std::vector<Student>* stuPtr = sm.getStudentsPointer();
     //
@@ -94,7 +94,7 @@ void FileManager::writeStudents(StudentManagement& sm) {
 
 void FileManager::readEvents(EventSystem& es) {
     // open the events.txt file
-    std::ifstream eventFile("..\\data\\events.txt");
+    std::ifstream eventFile("data/events.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -188,7 +188,7 @@ void FileManager::readEvents(EventSystem& es) {
 }
 
 void FileManager::writeEvents(EventSystem& es) {
-    ofstream events("..\\data\\events.txt");
+    ofstream events("data/events.txt");
 
     const vector<unique_ptr<Event>> *eventsPtr = es.getEventsPointer();
 
@@ -229,7 +229,7 @@ void FileManager::writeEvents(EventSystem& es) {
 void FileManager::readOrganizers(OrganizerManagement& org) {
 
     // open the students.txt file
-    std::ifstream organizer("..\\data\\organizers.txt");
+    std::ifstream organizer("data/organizers.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -281,7 +281,7 @@ void FileManager::readOrganizers(OrganizerManagement& org) {
 void FileManager::writeOrganizers(OrganizerManagement& org) {
 
     //open txt file to save organizers
-    ofstream orgFile("..\\data\\organizers.txt");
+    ofstream orgFile("data/organizers.txt");
 
     //get a pointer to the vector holding the organizers
     const vector<Organizer> *orgPtr = org.getOrganizersPointer();
@@ -302,7 +302,7 @@ void FileManager::writeOrganizers(OrganizerManagement& org) {
 void FileManager::readRegistrations(RegistrationManager& rm) {
 
     // open the registrations.txt file
-    std::ifstream registration("..\\data\\registrations.txt");
+    std::ifstream registration("data/registrations.txt");
 
     //initialize counter variable to track line read
     int i = 0;
@@ -355,7 +355,7 @@ void FileManager::readRegistrations(RegistrationManager& rm) {
 void FileManager::writeRegistrations(RegistrationManager& rm) {
 
     //open txt file to save registrations
-    ofstream regFile("..\\data\\registrations.txt");
+    ofstream regFile("data/registrations.txt");
 
     //get a pointer to the vector holding the organizers
     // std::vector<Registration>* regPtr = rm.getOrganizerPointer();
