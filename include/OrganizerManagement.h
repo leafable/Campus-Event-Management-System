@@ -16,5 +16,5 @@ public:
     void displayOrganizer(const string& name) const;
     void displayAllOrganizers() const;
     int getNumOrganizers() const;
-    const vector<Organizer>& getOrganizerVector() const;
+    const vector<Organizer>* getOrganizersPointer() const;
 };

@@ -55,7 +55,7 @@ int EventSystem::findEventByName(const string& name) const {
     return -1;
 }
 
-const vector<unique_ptr<Event>>& EventSystem::getEventVector() const {
-    return events;
+const vector<unique_ptr<Event>>* EventSystem::getEventsPointer() const {
+    return &events;
 }
 
