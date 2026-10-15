@@ -143,7 +143,7 @@ void processSelection(int selection, System& system)
             else if (c2selection == 2) {
                 system.students.displayAllStudents();
             }
-        break;
+            break;
         }
         case 3: {
 
@@ -156,21 +156,84 @@ void processSelection(int selection, System& system)
         case 5:
             break;
 
-        case 6:
-            break;
+        case 6: {
+            int studentID, eventID;
+            cout << "Enter student ID: ";
+            cin >> studentID;
+            cout << "Enter event ID: ";
+            cin >> eventID;
 
-        case 7:
-            break;
+            // addRegistration needs the event's max capacity, so look the event up first
+            int maxCapacity = -1;
+            for (const auto& e : *system.events.getEventsPointer())
+            {
+                if (e->getEventId() == eventID)
+                {
+                    maxCapacity = e->getEventMaxCapacity();
+                }
+            }
+            if (maxCapacity == -1)
+            {
+                cout << "No event found with that ID.\n";
+                break;
+            }
 
-        case 8:
-            break;
+            // the registration date, typed in by the user
+            string date;
+            cout << "Enter registration date (YYYY-MM-DD): ";
+            cin >> date;
 
-        case 9:
+            if (system.registrations.addRegistration(Registration(studentID, eventID, date, true), maxCapacity))
+                cout << "Student registered.\n";
+            else if (system.registrations.isRegistered(studentID, eventID))
+                cout << "Student is already registered for this event.\n";
+            else
+                cout << "This event is full.\n";
             break;
+        }
+        case 7: {
+            int studentID, eventID;
+            cout << "Enter student ID: ";
+            cin >> studentID;
+            cout << "Enter event ID: ";
+            cin >> eventID;
+            cout << endl;
 
-        case 10:
+            if (system.registrations.cancelRegistration(studentID, eventID))
+                cout << "Registration cancelled.\n";
+            else
+                cout << "No active registration found.\n";
             break;
+        }
+        case 8: {
+            int studentID;
+            cout << "Enter student ID: ";
+            cin >> studentID;
+            cout << endl;
 
+            vector<int> eventIDs = system.registrations.getEventIDsForStudent(studentID);
+            if (eventIDs.empty())
+                cout << "No registrations found.\n";
+            for (int id : eventIDs)
+                cout << "  - Event " << id << "\n";
+            break;
+        }
+        case 9: {
+            int eventID;
+            cout << "Enter event ID: ";
+            cin >> eventID;
+            cout << endl;
+
+            vector<int> studentIDs = system.registrations.getStudentIDsForEvent(eventID);
+            if (studentIDs.empty())
+                cout << "No students registered.\n";
+            for (int id : studentIDs)
+                cout << "  - Student " << id << "\n";
+                    break;
+        }
+        case 10: {
+            break;
+        }
         case 11: {
             cout << "1). Available Events\n";
             cout << "2). Full Events\n";
@@ -212,6 +275,6 @@ void processSelection(int selection, System& system)
             break;
         }
         case 0:
-            break;
+            exit(0);
     }
 }

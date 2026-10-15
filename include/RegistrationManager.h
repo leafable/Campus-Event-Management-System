@@ -16,9 +16,10 @@ private:
     int findIndex(int studentID, int eventID) const;
 
 public:
+    void loadRegistration(const Registration& registration);
     // Returns false if this student is already actively registered OR the event is full.
     // If the student previously cancelled, their registration is reactivated.
-    bool addRegistration(const Registration& registration);
+    bool addRegistration(const Registration& registration, int MaxCapacity);
 
     // Returns true only if the student has an active (not cancelled) registration
     bool isRegistered(int studentID, int eventID) const;

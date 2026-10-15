@@ -58,7 +58,7 @@ void FileManager::readStudents(StudentManagement& sm) {
             cerr << "Error! There is data missing from line " << i << endl;
             continue;
         }
-        
+
         //convert tempId to int id and catch errors
         try {
             id = stoi(tempId);
@@ -346,7 +346,7 @@ void FileManager::readRegistrations(RegistrationManager& rm) {
             continue;
         }
 
-        rm.addRegistration(Registration(SId, EId, regDate, status));
+        rm.loadRegistration(Registration(SId, EId, regDate, status));
     }
 
     registration.close();
