@@ -5,11 +5,11 @@ CareerEvent::CareerEvent(int id, string name, string description, string date, s
     this->recruiterName = recruiterName;
 }
 
-string CareerEvent::getCompanyName() const{
+string CareerEvent::getCompanyName() const {
     return companyName;
 }
 
-string CareerEvent::getRecruiterName() const{
+string CareerEvent::getRecruiterName() const {
     return recruiterName;
 }
 
@@ -19,4 +19,10 @@ void CareerEvent::setCompanyName(string newCompanyName){
 
 void CareerEvent::setRecruiterName(string newRecruiterName){
     this->recruiterName = newRecruiterName;
+}
+
+void CareerEvent::printDetails() const {
+    Event::printDetails();
+    cout << "Company: " << getCompanyName() << endl;
+    cout << "Recruiter: " << getRecruiterName() << endl;
 }

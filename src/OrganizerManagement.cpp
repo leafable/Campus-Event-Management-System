@@ -42,3 +42,6 @@ int OrganizerManagement::getNumOrganizers() const
 {
     return numOrganizers;
 }
+const vector<Organizer>& OrganizerManagement::getOrganizerVector() const {
+    return organizer;
+}

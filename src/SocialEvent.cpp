@@ -4,10 +4,15 @@ SocialEvent::SocialEvent(int id, string name, string description, string date, s
     this->isFancy = isFancy;
 }
 
-bool SocialEvent::getIfFancy() const{
+bool SocialEvent::getIfFancy() const {
     return isFancy;
 }
 
 void SocialEvent::setIfFancy(bool isFancy){
     this->isFancy = isFancy;
+}
+
+void SocialEvent::printDetails() const {
+    Event::printDetails();
+    cout << "Fancy: " << (getIfFancy() ? "True" : "False") << endl;
 }

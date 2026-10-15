@@ -13,9 +13,10 @@ private:
     friend class FileManager;
 public:
     void createEvent(unique_ptr<Event> event);
-    int findEventById(const int& id); // Returns index of event
-    void displayEvent(const int& id);
-    void displayEvent(const string& name);
-    void displayAllEvents();
-    int findEventByName(const string& name); // Returns index of event
+    int findEventById(const int& id) const; // Returns index of event
+    void displayEvent(const int& id) const;
+    void displayEvent(const string& name) const;
+    void displayAllEvents() const;
+    int findEventByName(const string& name) const; // Returns index of event
+    const vector<unique_ptr<Event>>& getEventVector() const;
 };

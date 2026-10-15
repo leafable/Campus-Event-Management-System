@@ -58,10 +58,10 @@ bool StudentManagement::isDuplicateId(const int& id) const {
     return (findById(id) != -1);
 }
 
-int StudentManagement::getNumStudents() const {
+int StudentManagement::getNumStudents() {
     return numStudents;
 }
 
-const vector<Student> StudentManagement::getStudentsVector(){
+const vector<Student>& StudentManagement::getStudentVector(){
     return students;
 }
