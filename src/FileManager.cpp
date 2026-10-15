@@ -348,7 +348,7 @@ void FileManager::readRegistrations(RegistrationManager& rm) {
             continue;
         }
 
-        rm.addRegistration(Registration(SId, EId, regDate, status));
+        rm.loadRegistration(Registration(SId, EId, regDate, status));
     }
 
     registration.close();
@@ -357,7 +357,7 @@ void FileManager::readRegistrations(RegistrationManager& rm) {
 void FileManager::writeRegistrations(RegistrationManager& rm) {
 
     //open txt file to save registrations
-    ofstream regFile("registration.txt");
+    ofstream regFile("registrations.txt");
 
     //get a pointer to the vector holding the organizers
     // std::vector<Registration>* regPtr = rm.getOrganizerPointer();
@@ -369,7 +369,7 @@ void FileManager::writeRegistrations(RegistrationManager& rm) {
     // }
 
     for (const Registration& r : rm.getAllRegistrations()) {
-        regFile << r.studentID << "," << r.eventID << "," << r.registrationDate << "," << r.status << '\n';
+        regFile << r.getStudentID() << "," << r.getEventID() << "," << r.getRegistrationDate() << "," << r.getStatus() << '\n';
     }
 
     regFile.close();;
