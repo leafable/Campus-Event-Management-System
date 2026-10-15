@@ -87,7 +87,7 @@ void FileManager::writeStudents(StudentManagement& sm) {
     //     }
     // }
 
-    for (const Student& s : sm.getStudentVector()) {
+    for (const Student& s : sm.getStudentsVector()) {
         enrolled << s.id << "," << s.name << "," << s.email << "," << s.major << '\n';
     }
 
@@ -192,35 +192,36 @@ void FileManager::readEvents(EventSystem& es) {
 void FileManager::writeEvents(EventSystem& es) {
     ofstream events("events.txt");
 
-    std::vector<Event>* eventPtr = es.getEventsPointer();
+    vector<unique_ptr<Event>>* eventsPtr = es.getEventsPointer();
 
+    if (eventsPtr != nullptr) {
+        for (unique_ptr<Event>& e : *eventsPtr) {
 
-    for (Event* e : es.getEventsVector()) {
+            events <<  e->getEventId() << "," <<  e->getEventName() << "," << e->getEventDescription() << ","
+            << e->getEventDate() << "," << e->getEventTime() << "," <<  e->getEventLocation() << ","
+            << e->getEventMaxCapacity() << "," << e->getOrganizer();
 
-        events <<  e->getEventId() << "," <<  e->getEventName() << "," << e->getEventDescription() << ","
-        << e->getEventDate() << "," << e->getEventTime() << "," <<  e->getEventLocation() << ","
-        << e->getEventMaxCapacity() << "," << e->getOrganizer();
-
-        // Determine type of event and write event specific data
-        if (e->getEventDescription() == "Academic Event")
-        {
-            AcademicEvent* ePtr = dynamic_cast<AcademicEvent*>(e);
-            events << "," << ePtr->getDepartment() << "," << ePtr->getSpeaker() << endl;
-        }
-        else if (e->getEventDescription() == "Career Event")
-        {
-            CareerEvent* ePtr = dynamic_cast<CareerEvent*>(e);
-            events << "," << ePtr->getCompanyName() << "," << ePtr->getRecruiterName() << endl;
-        }
-        else if (e->getEventDescription() == "Club Event")
-        {
-            ClubEvent* ePtr = dynamic_cast<ClubEvent*>(e);
-            events << "," << ePtr->getClub() << '\n';
-        }
-        else if (e->getEventDescription() == "Social Event")
-        {
-            SocialEvent* ePtr = dynamic_cast<SocialEvent*>(e);
-            events << "," << ePtr->getIfFancy() << '\n';
+            // Determine type of event and write event specific data
+            if (e->getEventDescription() == "Academic Event")
+            {
+                auto* ePtr = dynamic_cast<AcademicEvent*>(e.get());
+                events << "," << ePtr->getDepartment() << "," << ePtr->getSpeaker() << endl;
+            }
+            else if (e->getEventDescription() == "Career Event")
+            {
+                auto* ePtr = dynamic_cast<CareerEvent*>(e.get());
+                events << "," << ePtr->getCompanyName() << "," << ePtr->getRecruiterName() << endl;
+            }
+            else if (e->getEventDescription() == "Club Event")
+            {
+                auto* ePtr = dynamic_cast<ClubEvent*>(e.get());
+                events << "," << ePtr->getClub() << '\n';
+            }
+            else if (e->getEventDescription() == "Social Event")
+            {
+                auto* ePtr = dynamic_cast<SocialEvent*>(e.get());
+                events << "," << ePtr->getIfFancy() << '\n';
+            }
         }
     }
 
@@ -285,12 +286,10 @@ void FileManager::writeOrganizers(OrganizerManagement& org) {
     ofstream orgFile("organizers.txt");
 
     //get a pointer to the vector holding the organizers
-    std::vector<Organizer>* orgPtr = org.getOrganizerPointer();
+    std::vector<Organizer> orgPtr = org.getOrganizerVector();
 
-    if (orgPtr != nullptr) {
-        for (const Organizer& o : *orgPtr) {
-            orgFile << o.id << "," << o.name << "," << o.email << "," << o.dept << '\n';
-        }
+    for (const Organizer& o : orgPtr) {
+        orgFile << o.organizerId << "," << o.name << "," << o.email << "," << o.department << '\n';
     }
 
     // for (const Organizer& s : org.getStudentVector()) {
@@ -319,14 +318,15 @@ void FileManager::readRegistrations(RegistrationManager& rm) {
         stringstream ss(line);
 
         //declare all holding variables
-        string tempSId, tempEId, regDate, status;
+        string tempSId, tempEId, regDate, stat;
         int SId, EId;
+        bool status;
 
         //store all CSV in the line to variables
         getline(ss, tempSId, ',');
         getline(ss, tempEId, ',');
         getline(ss, regDate, ',');
-        getline(ss, status, ',');
+        getline(ss, stat, ',');
 
         //Check if current row is missing a data member
         // if (status.empty() && !getline(ss, major, ',')) {
@@ -340,6 +340,7 @@ void FileManager::readRegistrations(RegistrationManager& rm) {
         try {
             SId = stoi(tempSId);
             EId = stoi(tempEId);
+            status = stoi(stat);
         } catch (const exception &e) {
             cerr << "Error reading IDs. Skipped line: " << i << endl;
             continue;
@@ -372,7 +373,7 @@ void FileManager::writeRegistrations(RegistrationManager& rm) {
     regFile.close();;
 }
 
-void saveData(StudentManagement& stm, EventSystem& evs, OrganizerManagement& orgs, RegistrationManager& regm) {
+void FileManager::saveData(StudentManagement& stm, EventSystem& evs, OrganizerManagement& orgs, RegistrationManager& regm) {
     writeStudents(stm);
     writeEvents(evs);
     writeOrganizers(orgs);
