@@ -1,5 +1,4 @@
 #include "RegistrationManager.h"
-
 #include <iostream>
 
 using namespace std;
