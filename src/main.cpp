@@ -28,7 +28,7 @@ int main()
 }
 //clears screen to keep things organized
 void clearScreen() {
-    cout<<"\033[2J\033[H" << flush;
+    system("cls"); //only works in windows console
 }
 
 int getSelection()
