@@ -289,7 +289,13 @@ void processSelection(int selection, System& system)
             int eventID{};
 
             cout << "Enter student ID: ";
-            cin >> studentID;
+
+            if (!(cin >> studentID)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid student ID. Please enter a number.\n";
+                break;
+            }
 
             if (system.students.isDuplicateId(studentID)) {//checks if student exists
 
@@ -552,6 +558,6 @@ void processSelection(int selection, System& system)
             break;
         }
         case 0:
-            exit(0);
+            break;
     }
 }
