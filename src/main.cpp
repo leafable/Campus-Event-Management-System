@@ -435,9 +435,10 @@ void processSelection(int selection, System& system)
             if (system.registrations.cancelRegistration(studentID, eventID))
                 cout << "Registration cancelled.\n";
             else
-                cout << "No active registration found.\n";
+                system.registrations.printRegistrationStatus(studentID, eventID);
             break;
         }
+        
         case 8: {
 
             clearScreen();
