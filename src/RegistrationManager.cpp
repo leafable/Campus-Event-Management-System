@@ -71,7 +71,8 @@ bool RegistrationManager::cancelRegistration(int studentID, int eventID)
     registrations[index].setStatus(false);
     return true;
 }
- 
+
+//counts how many students are registered for a given event
 int RegistrationManager::countForEvent(int eventID) const
 {
     int count = 0;
