@@ -18,5 +18,6 @@ public:
     void displayEvent(const string& name) const;
     void displayAllEvents() const;
     int findEventByName(const string& name) const; // Returns index of event
+    bool eventExists(const int id) const;
     const vector<unique_ptr<Event>>* getEventsPointer() const;
 };

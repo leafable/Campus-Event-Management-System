@@ -35,7 +35,6 @@ bool RegistrationManager::addRegistration(const Registration& registration, int 
     if (index != -1)
     {
         registrations[index] = registration;
-        registrations[index].setStatus(true);
         return true;
     }
  
@@ -43,8 +42,7 @@ bool RegistrationManager::addRegistration(const Registration& registration, int 
     return true;
 }
 
-// used only by FileManager when loading saved registrations from the file:
-// these were already checked when they were first made, so they go straight into the vector
+//Used for fileManager
 void RegistrationManager::loadRegistration(const Registration& registration)
 {
     registrations.push_back(registration);

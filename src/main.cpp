@@ -6,6 +6,7 @@ using namespace std;
 
 int getSelection();
 void processSelection(int selection, System& system);
+void clearScreen();
 
 int main()
 {
@@ -23,6 +24,10 @@ int main()
 
     while (selection != 0);
     return 0;
+}
+//clears screen to keep things organized
+void clearScreen() {
+    cout<<"\033[2J\033[H" << flush;
 }
 
 int getSelection()
@@ -59,6 +64,9 @@ void processSelection(int selection, System& system)
 {
     switch (selection) {
         case 1: {
+
+            clearScreen();
+
             string c1name{};
             string c1email{};
             string c1major{};
@@ -105,6 +113,9 @@ void processSelection(int selection, System& system)
             break;
         }
         case 2: {
+
+            clearScreen();
+
             string c2name{};
             int c2id{};
             int c2selection{};
@@ -151,23 +162,139 @@ void processSelection(int selection, System& system)
         }
         case 3: {
 
+            clearScreen();
+
+            int eventId{};
+            string eventName{};
+            string description{};
+            string date{};
+            string time{};
+            string location{};
+            int maxCap{};
+            string organizer{};
+            int eventLength{};
+            bool validId = false;
+
+            // keep asking until the user enters a number that no other event is using
+            do {
+                cout<<"Enter Event ID: ";
+                if (!(cin>>eventId)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout<<"Please enter a number."<<endl;
+                    continue;
+                }
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                if (system.events.eventExists(eventId)) {
+                    cout<<"That event ID is already taken."<<endl;
+                }
+                else {
+                    validId = true;
+                }
+            } while (!validId);
+
+            cout<<endl<<"Enter Event Name: ";
+            getline(cin,eventName);
+
+            cout<<endl<<"Enter Description of Event: ";
+            getline(cin,description);
+
+            cout<<endl<<"Enter date(mm/dd/yyyy): ";
+            getline(cin,date);
+
+            cout<<endl<<"Enter time(1:00-24:00): ";
+            getline(cin,time);
+
+            cout<<endl<<"Enter Location: ";
+            getline(cin,location);
+
+            // keep asking until the user enters a number of at least 1
+            do {
+                cout<<endl<<"Enter Max Event Capacity (must be at least 1): ";
+                if (!(cin>>maxCap)) {
+                    cin.clear();
+                    maxCap = 0;
+                }
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            } while (maxCap <= 0);
+
+            cout<<endl<<"Enter Organizer Name: ";
+            getline(cin,organizer);
+
+            // keep asking until the user enters a number of at least 1
+            do {
+                cout<<endl<<"Enter Event Length(in minutes): ";
+                if (!(cin>>eventLength)) {
+                    cin.clear();
+                    eventLength = 0;
+                }
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            } while (eventLength <= 0);
+
+            std::unique_ptr<Event> event = std::make_unique<Event>(eventId, eventName, description, date, time, location, maxCap, organizer, eventLength);
+
+            system.events.createEvent(std::move(event));
+
+            cout<<endl<<"Event created."<<endl;
         }
         break;
 
-        case 4:
+        case 4: {
+
+            clearScreen();
+
+            system.events.displayAllEvents();
+        }
             break;
  
-        case 5:
+        case 5: {
+
+            clearScreen();
+
+            int input{};
+            bool done = false;
+
+            cout<<"Event Info\n\n1.Find event using ID\n2.Find event by name" << endl;
+
+            do {
+                cin>>input;
+
+                if (input == 1) {
+                    int id{};
+                    cout<<"Enter Event ID: ";
+                    cin>>id;
+                    system.events.displayEvent(id);
+                    done = true;
+                }
+                else if (input == 2) {
+                    string name{};
+
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout<<"Enter Event Name: ";
+                    getline(cin,name);
+                    system.events.displayEvent(name);
+                    done = true;
+                }
+            }while (!done);
+
+        }
             break;
 
         case 6: {
-            int studentID, eventID;
+
+            clearScreen();
+
+            int studentID{};
+            int eventID{};
+
             cout << "Enter student ID: ";
             cin >> studentID;
-            cout << "Enter event ID: ";
-            cin >> eventID;
 
-            // addRegistration needs the event's max capacity, so look the event up first
+            if (system.students.isDuplicateId(studentID)) {//checks if student exists
+
+                cout << "Enter event ID: ";
+                cin >> eventID;
             int maxCapacity = -1;
             for (const auto& e : *system.events.getEventsPointer())
             {
@@ -193,9 +320,17 @@ void processSelection(int selection, System& system)
                 cout << "Student is already registered for this event.\n";
             else
                 cout << "This event is full.\n";
+        }
+            else {
+                cout<<"No student with that ID found";
+            }
             break;
         }
+
         case 7: {
+
+            clearScreen();
+
             int studentID, eventID;
             cout << "Enter student ID: ";
             cin >> studentID;
@@ -210,35 +345,173 @@ void processSelection(int selection, System& system)
             break;
         }
         case 8: {
-            int studentID;
+
+            clearScreen();
+
+            int studentID{};
             cout << "Enter student ID: ";
-            cin >> studentID;
+            if (!(cin >> studentID)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid student ID.\n";
+                break;
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << endl;
 
+            // find the student so we can show their name
+            bool studentFound = false;
+            string studentName{};
+            for (const Student& s : system.students.getStudentVector()) {
+                if (s.getId() == studentID) {
+                    studentName = s.getName();
+                    studentFound = true;
+                    break;
+                }
+            }
+            if (!studentFound) {
+                cout << "No student found with that ID.\n";
+                break;
+            }
+
+            cout << "Student: " << studentName << "\n\n";
+            cout << "Registered Events:\n";
+
             vector<int> eventIDs = system.registrations.getEventIDsForStudent(studentID);
-            if (eventIDs.empty())
-                cout << "No registrations found.\n";
-            for (int id : eventIDs)
-                cout << "  - Event " << id << "\n";
+            if (eventIDs.empty()) {
+                cout << "  (none)\n";
+                break;
+            }
+
+            // look up each event's name from its ID
+            int number = 1;
+            for (int id : eventIDs) {
+                for (const auto& e : *system.events.getEventsPointer()) {
+                    if (e->getEventId() == id) {
+                        cout << number << ". " << e->getEventName() << "\n";
+                        number++;
+                        break;
+                    }
+                }
+            }
             break;
         }
         case 9: {
-            int eventID;
+
+            clearScreen();
+
+            int eventID{};
             cout << "Enter event ID: ";
-            cin >> eventID;
+            if (!(cin >> eventID)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid event ID.\n";
+                break;
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << endl;
 
-            vector<int> studentIDs = system.registrations.getStudentIDsForEvent(eventID);
-            if (studentIDs.empty())
-                cout << "No students registered.\n";
-            for (int id : studentIDs)
-                cout << "  - Student " << id << "\n";
+            // find the event so we can show its name
+            bool eventFound = false;
+            string eventName{};
+            for (const auto& e : *system.events.getEventsPointer()) {
+                if (e->getEventId() == eventID) {
+                    eventName = e->getEventName();
+                    eventFound = true;
                     break;
+                }
+            }
+            if (!eventFound) {
+                cout << "No event found with that ID.\n";
+                break;
+            }
+
+            cout << "Event: " << eventName << "\n\n";
+            cout << "Registered Students:\n";
+
+            vector<int> studentIDs = system.registrations.getStudentIDsForEvent(eventID);
+            if (studentIDs.empty()) {
+                cout << "  (none)\n";
+                break;
+            }
+
+            // look up each student's name from their ID
+            int number = 1;
+            for (int id : studentIDs) {
+                for (const Student& s : system.students.getStudentVector()) {
+                    if (s.getId() == id) {
+                        cout << number << ". " << s.getName() << "\n";
+                        number++;
+                        break;
+                    }
+                }
+            }
+            break;
         }
-        case 10: {
+                case 10: {
+
+            clearScreen();
+            int input{};
+            bool done = false;
+
+
+            do {
+                cout<<"Organizer Info\n1.Add Organizer\n2.Find Organizer by Name\n3.Display All Organizers\n";
+                cout<<endl<<"Selection: ";
+                if (!(cin>>input)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout<<"Please enter a number."<<endl;
+                    continue;
+                }
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+                if (input == 1) {
+                    string name{};
+                    int id{};
+                    string email{};
+                    string department{};
+
+                    //const string& name, const int organizerId, const string& email, const string& department
+                    cout<<"Enter Organizer Name: ";
+                    getline(cin, name);
+                    cout<<endl<<"Enter Organizer ID: ";
+                    cin>>id;
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout<<endl<<"Enter Organizer Email: ";
+                    getline(cin, email);
+                    cout<<endl<<"Enter Organizer Department: ";
+                    getline(cin, department);
+                    cout<<endl;
+
+                    system.organizers.addOrganizer(name, id, email, department);
+
+                    done = true;
+                }
+                else if (input == 2) {
+                    string name{};
+                    cout<<"Enter Organizer Name: ";
+                    getline(cin, name);
+
+                    system.organizers.displayOrganizer(name);
+
+                    done = true;
+
+                }
+                else if (input == 3) {
+                    system.organizers.displayAllOrganizers();
+
+                    done = true;
+
+                }
+            }while (!done);
+
             break;
         }
         case 11: {
+
+            clearScreen();
+
             cout << "1). Available Events\n";
             cout << "2). Full Events\n";
             cout << "3). Registration Counts\n";
