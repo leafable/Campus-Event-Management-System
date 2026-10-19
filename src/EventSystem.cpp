@@ -55,6 +55,15 @@ int EventSystem::findEventByName(const string& name) const {
     return -1;
 }
 
+bool EventSystem:: eventExists(const int id) const {
+    for (const auto & event : events) {
+        if (event->getEventId() == id) {
+            return true;
+        }
+    }
+    return false;
+}
+
 const vector<unique_ptr<Event>>* EventSystem::getEventsPointer() const {
     return &events;
 }

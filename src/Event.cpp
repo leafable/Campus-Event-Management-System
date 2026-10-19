@@ -1,6 +1,6 @@
 #include <Event.h>
 
-Event::Event(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength){
+Event::Event(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, int eventLength){
     this->id = id;
     this->eventName = name;
     this->eventDescription = description;
@@ -39,7 +39,7 @@ string Event::getOrganizer() const{
     return organizer;
 }
 
-string Event::getEventLength() const{
+int Event::getEventLength() const{
     return eventLength;
 }
 
@@ -59,7 +59,7 @@ void Event::setEventTime(string newEventTime){
     this->eventTime = newEventTime;
 }
 
-void Event::setEventLength(string newEventLength){
+void Event::setEventLength(int newEventLength){
     this->eventLength = newEventLength;
 }
 
@@ -77,6 +77,10 @@ void Event::setLocation(string newLocation){
 
 int Event::getEventId() const{
     return id;
+}
+
+void Event::setEventId(int EventID) {
+    this->id = EventID;
 }
 
 void Event::printDetails() const {

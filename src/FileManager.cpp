@@ -96,6 +96,12 @@ void FileManager::readEvents(EventSystem& es) {
     // open the events.txt file
     std::ifstream eventFile("data/events.txt");
 
+    //checks if file opened
+      if (!eventFile.is_open()) {
+      cout << "Could not open data/events.txt" << endl;
+      return;
+  }
+
     //initialize counter variable to track line read
     int i = 0;
 
@@ -110,7 +116,7 @@ void FileManager::readEvents(EventSystem& es) {
 
         //declare all holding variables
         string tempId, name, description, date, location, org, start, maxcap, length;
-        int imaxcap, id;
+        int imaxcap, id, ilength;
 
         //store all CSV in the line to variables
         getline(ss, tempId, ',');
@@ -123,15 +129,11 @@ void FileManager::readEvents(EventSystem& es) {
         getline(ss, org, ',');
         getline(ss, length, ',');
 
-        // if (!getline(ss, length, ',')) {
-        //     cerr << "Missing data in line: " << i << endl;
-        //     continue;
-        // }
-
         //convert numerical strings to proper data types
         try {
             imaxcap = stoi(maxcap);
             id = stoi(tempId);
+            ilength = stoi(length);
         } catch (const exception &e) {
             cerr << "Error reading numerical values. Skipped line: " << i << endl;
             continue;
@@ -144,7 +146,7 @@ void FileManager::readEvents(EventSystem& es) {
 
             //creates AcademicEvent object and stores it in an event unique ptr then adds to EventSystem
             std::unique_ptr<Event> my_event = std::make_unique<AcademicEvent>(id, name, description, date, start, location,
-                imaxcap, org, length, department, speaker);
+                imaxcap, org, ilength, department, speaker);
             es.createEvent(std::move(my_event));
         }
         else if (description == "Career Event") {
@@ -154,7 +156,7 @@ void FileManager::readEvents(EventSystem& es) {
 
             //creates CareerEvent object and stores it in an event unique ptr then adds to EventSystem
             std::unique_ptr<Event> my_event = std::make_unique<CareerEvent>(id, name, description, date, start, location,
-                imaxcap, org, length, company, recruiter);
+                imaxcap, org, ilength, company, recruiter);
             es.createEvent(std::move(my_event));
         }
         else if (description == "Club Event") {
@@ -163,7 +165,7 @@ void FileManager::readEvents(EventSystem& es) {
 
             //creates ClubEvent object and stores it in an event unique ptr then adds to EventSystem
             std::unique_ptr<Event> my_event = std::make_unique<ClubEvent>(id, name, description, date, start, location,
-                imaxcap, org, length, club);
+                imaxcap, org, ilength, club);
             es.createEvent(std::move(my_event));
         }
         else if (description == "Social Event") {
@@ -173,7 +175,7 @@ void FileManager::readEvents(EventSystem& es) {
 
             //creates Social Event object and stores it in an event unique ptr then adds to EventSystem
             std::unique_ptr<Event> my_event = std::make_unique<SocialEvent>(id, name, description, date, start, location,
-                imaxcap, org, length, fancy);
+                imaxcap, org, ilength, fancy);
             es.createEvent(std::move(my_event));
 
         }
@@ -197,7 +199,7 @@ void FileManager::writeEvents(EventSystem& es) {
 
             events <<  e->getEventId() << "," <<  e->getEventName() << "," << e->getEventDescription() << ","
             << e->getEventDate() << "," << e->getEventTime() << "," <<  e->getEventLocation() << ","
-            << e->getEventMaxCapacity() << "," << e->getOrganizer();
+            << e->getEventMaxCapacity() << "," << e->getOrganizer() << "," << e->getEventLength();
 
             // Determine type of event and write event specific data
             if (e->getEventDescription() == "Academic Event")

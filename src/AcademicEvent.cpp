@@ -1,6 +1,6 @@
 #include "AcademicEvent.h"
 
-AcademicEvent::AcademicEvent(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, string eventLength, string department, string speaker) : Event(id, name, description, date, time, location, maxCap, organizer, eventLength){
+AcademicEvent::AcademicEvent(int id, string name, string description, string date, string time,  string location, int maxCap, string organizer, int eventLength, string department, string speaker) : Event(id, name, description, date, time, location, maxCap, organizer, eventLength){
     this->department = department;
     this->speaker = speaker;
 }
