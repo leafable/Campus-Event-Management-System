@@ -1,6 +1,10 @@
 #include <iostream>
 #include <limits>
 #include "../include/System.h"
+#include "../include/AcademicEvent.h"
+#include "../include/CareerEvent.h"
+#include "../include/ClubEvent.h"
+#include "../include/SocialEvent.h"
 
 using namespace std;
 
@@ -11,9 +15,6 @@ void clearScreen();
 int main()
 {
     System system;
-    
-    EventSystem events;
-    RegistrationManager registrations;
     
     int selection{};
 
@@ -87,13 +88,15 @@ void processSelection(int selection, System& system)
             for (int i = 0; i < numMajors; i++) {
                 cout << i + 1 << "). " << majorList[i] << endl;
             }
+
             cout << endl << "Major: ";
-            cin >> c1majorselection;
-            while (c1majorselection < 1 || c1majorselection > numMajors) {
+            while (!(cin >> c1majorselection) || c1majorselection < 1 || c1majorselection > numMajors) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Invalid selection." << endl;
                 cout << "Major: ";
-                cin >> c1majorselection;
             }
+
             c1major = majorList[c1majorselection - 1];
 
             const auto& students = system.students.getStudentVector();
@@ -124,9 +127,10 @@ void processSelection(int selection, System& system)
             cout << "2). View all students" << endl;
 
             cout << endl << "Enter selection: ";
-            cin >> c2selection;
 
-            while (c2selection < 1 || c2selection > 2) {
+            while (!(cin >> c2selection) || c2selection < 1 || c2selection > 2) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Invalid selection." << endl;
                 cout << endl << "Enter selection: ";
             }
@@ -136,9 +140,10 @@ void processSelection(int selection, System& system)
                 cout << "2). Find student by ID" << endl;
 
                 cout << endl << "Enter selection: ";
-                cin >> c2selection;
 
-                while (c2selection < 1 || c2selection > 2) {
+                while (!(cin >> c2selection) || c2selection < 1 || c2selection > 2) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cout << "Invalid selection." << endl;
                     cout << endl << "Enter selection: ";
                 }
@@ -151,7 +156,11 @@ void processSelection(int selection, System& system)
                 }
                 else if (c2selection == 2) {
                     cout << endl << "Student ID: ";
-                    cin >> c2id;
+                    while (!(cin >> c2id)) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "Invalid student ID. Please enter a number: ";
+                    }
                     system.students.displayStudent(c2id);
                 }
             }
@@ -174,6 +183,13 @@ void processSelection(int selection, System& system)
             string organizer{};
             int eventLength{};
             bool validId = false;
+            string department{};
+            string speaker{};
+            string company{};
+            string recruiter{};
+            string club{};
+            int fancyChoice{};
+            int typeChoice{};
 
             // keep asking until the user enters a number that no other event is using
             do {
@@ -197,10 +213,51 @@ void processSelection(int selection, System& system)
             cout<<endl<<"Enter Event Name: ";
             getline(cin,eventName);
 
-            cout<<endl<<"Enter Description of Event: ";
-            getline(cin,description);
 
-            cout<<endl<<"Enter date(mm/dd/yyyy): ";
+
+            do {
+                cout<<endl<<"Event Type:\n1. Academic Event\n2. Career Event\n3. Club Event\n4. Social Event\n";
+                cout<<"Selection: ";
+                if (!(cin>>typeChoice)) {
+                    cin.clear();
+                    typeChoice = 0;
+                }
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            } while (typeChoice < 1 || typeChoice > 4);
+
+            // set the type and ask for that type's extra info
+            if (typeChoice == 1) {
+                description = "Academic Event";
+                cout<<endl<<"Enter Department: ";
+                getline(cin,department);
+                cout<<endl<<"Enter Speaker: ";
+                getline(cin,speaker);
+            }
+            else if (typeChoice == 2) {
+                description = "Career Event";
+                cout<<endl<<"Enter Company Name: ";
+                getline(cin,company);
+                cout<<endl<<"Enter Recruiter Name: ";
+                getline(cin,recruiter);
+            }
+            else if (typeChoice == 3) {
+                description = "Club Event";
+                cout<<endl<<"Enter Club Name: ";
+                getline(cin,club);
+            }
+            else {
+                description = "Social Event";
+                do {
+                    cout<<endl<<"Is it a fancy event? (1 = yes, 0 = no): ";
+                    if (!(cin>>fancyChoice)) {
+                        cin.clear();
+                        fancyChoice = -1;
+                    }
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                } while (fancyChoice != 0 && fancyChoice != 1);
+            }
+
+            cout<<endl<<"Enter date(YYYY-MM-DD): ";
             getline(cin,date);
 
             cout<<endl<<"Enter time(1:00-24:00): ";
@@ -232,7 +289,21 @@ void processSelection(int selection, System& system)
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             } while (eventLength <= 0);
 
-            std::unique_ptr<Event> event = std::make_unique<Event>(eventId, eventName, description, date, time, location, maxCap, organizer, eventLength);
+            // create the matching event type
+            std::unique_ptr<Event> event;
+
+            if (typeChoice == 1) {
+                event = std::make_unique<AcademicEvent>(eventId, eventName, description, date, time, location, maxCap, organizer, eventLength, department, speaker);
+            }
+            else if (typeChoice == 2) {
+                event = std::make_unique<CareerEvent>(eventId, eventName, description, date, time, location, maxCap, organizer, eventLength, company, recruiter);
+            }
+            else if (typeChoice == 3) {
+                event = std::make_unique<ClubEvent>(eventId, eventName, description, date, time, location, maxCap, organizer, eventLength, club);
+            }
+            else {
+                event = std::make_unique<SocialEvent>(eventId, eventName, description, date, time, location, maxCap, organizer, eventLength, fancyChoice == 1);
+            }
 
             system.events.createEvent(std::move(event));
 
@@ -253,33 +324,38 @@ void processSelection(int selection, System& system)
             clearScreen();
 
             int input{};
-            bool done = false;
 
             cout<<"Event Info\n\n1.Find event using ID\n2.Find event by name" << endl;
 
-            do {
-                cin>>input;
+            cout<<endl<<"Enter selection: ";
+            while (!(cin >> input) || input < 1 || input > 2) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout<<"Invalid selection."<<endl;
+                cout<<endl<<"Enter selection: ";
+            }
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-                if (input == 1) {
-                    int id{};
-                    cout<<"Enter Event ID: ";
-                    cin>>id;
-                    system.events.displayEvent(id);
-                    done = true;
-                }
-                else if (input == 2) {
-                    string name{};
-
+            if (input == 1) {
+                int id{};
+                cout<<"Enter Event ID: ";
+                while (!(cin >> id)) {
+                    cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout<<"Enter Event Name: ";
-                    getline(cin,name);
-                    system.events.displayEvent(name);
-                    done = true;
+                    cout<<"Invalid event ID. Please enter a number: ";
                 }
-            }while (!done);
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                system.events.displayEvent(id);
+            }
+            else {
+                string name{};
+                cout<<"Enter Event Name: ";
+                getline(cin,name);
+                system.events.displayEvent(name);
+            }
 
         }
-            break;
+        break;
 
         case 6: {
 
@@ -304,6 +380,7 @@ void processSelection(int selection, System& system)
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cout << "Invalid event ID. Please enter a number: ";
                 }
+
             int maxCapacity = -1;
             for (const auto& e : *system.events.getEventsPointer())
             {
@@ -331,7 +408,7 @@ void processSelection(int selection, System& system)
                 cout << "This event is full.\n";
         }
             else {
-                cout<<"No student with that ID found";
+                cout<<"No student with that ID found\n";
             }
             break;
         }
@@ -342,9 +419,17 @@ void processSelection(int selection, System& system)
 
             int studentID, eventID;
             cout << "Enter student ID: ";
-            cin >> studentID;
+            while (!(cin >> studentID)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid student ID. Please enter a number: ";
+            }
             cout << "Enter event ID: ";
-            cin >> eventID;
+            while (!(cin >> eventID)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid event ID. Please enter a number: ";
+            }
             cout << endl;
 
             if (system.registrations.cancelRegistration(studentID, eventID))
@@ -457,7 +542,7 @@ void processSelection(int selection, System& system)
             }
             break;
         }
-                case 10: {
+        case 10: {
 
             clearScreen();
             int input{};
@@ -485,8 +570,13 @@ void processSelection(int selection, System& system)
                     cout<<"Enter Organizer Name: ";
                     getline(cin, name);
                     cout<<endl<<"Enter Organizer ID: ";
-                    cin>>id;
+                    while (!(cin >> id)) {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "Invalid Organizer ID. Please enter a number: ";
+                    }
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
                     cout<<endl<<"Enter Organizer Email: ";
                     getline(cin, email);
                     cout<<endl<<"Enter Organizer Department: ";
