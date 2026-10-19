@@ -290,17 +290,20 @@ void processSelection(int selection, System& system)
 
             cout << "Enter student ID: ";
 
-            if (!(cin >> studentID)) {
+            while (!(cin >> studentID)) {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Invalid student ID. Please enter a number.\n";
-                break;
+                cout << "Invalid student ID. Please enter a number: ";
             }
 
             if (system.students.isDuplicateId(studentID)) {//checks if student exists
 
                 cout << "Enter event ID: ";
-                cin >> eventID;
+                while (!(cin >> eventID)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid event ID. Please enter a number: ";
+                }
             int maxCapacity = -1;
             for (const auto& e : *system.events.getEventsPointer())
             {
