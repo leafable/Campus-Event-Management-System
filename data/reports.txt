@@ -1,0 +1,58 @@
+Campus Event Management System
+1). Add Student
+2). View Students
+3). Create Event
+4). View Events
+5). Search Events
+6). Register Student for Event
+7). Cancel Registration
+8). View Student Registrations
+9). View Event Attendees
+10). View Organizers
+11). System Reports
+0). Exit
+
+Enter selection: 11
+sh: 1: cls: not found
+1). Available Events
+2). Full Events
+3). Registration Counts
+4). Most Popular Event
+
+Report selection: 1
+
+Events with Available Capacity:
+Academic Seminar 1 - Available spots: 22
+Academic Seminar 7 - Available spots: 13
+Academic Seminar 8 - Available spots: 10
+Academic Seminar 9 - Available spots: 20
+Career Fair Session 1 - Available spots: 20
+Career Fair Session 2 - Available spots: 17
+Career Fair Session 3 - Available spots: 20
+Career Fair Session 4 - Available spots: 29
+Career Fair Session 5 - Available spots: 18
+Career Fair Session 6 - Available spots: 10
+Career Fair Session 7 - Available spots: 19
+Career Fair Session 8 - Available spots: 10
+Career Fair Session 9 - Available spots: 30
+Career Fair Session 10 - Available spots: 9
+Club Activity 1 - Available spots: 10
+Club Activity 2 - Available spots: 29
+Club Activity 3 - Available spots: 8
+Club Activity 4 - Available spots: 19
+Club Activity 5 - Available spots: 30
+Club Activity 6 - Available spots: 17
+Club Activity 7 - Available spots: 18
+Club Activity 8 - Available spots: 28
+Club Activity 9 - Available spots: 10
+Club Activity 10 - Available spots: 28
+Social Gathering 1 - Available spots: 20
+Social Gathering 2 - Available spots: 5
+Social Gathering 3 - Available spots: 9
+Social Gathering 4 - Available spots: 9
+Social Gathering 5 - Available spots: 10
+Social Gathering 6 - Available spots: 8
+Social Gathering 7 - Available spots: 9
+Social Gathering 8 - Available spots: 10
+Social Gathering 9 - Available spots: 17
+Social Gathering 10 - Available spots: 30
